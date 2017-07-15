@@ -518,7 +518,11 @@ public class XmlTvParser {
                         programIterator.remove();
                     }
                 }
-                mProgramMap.put(channel.getOriginalNetworkId(), programsForChannel);
+
+                // Don't overwrite a channel's programs list if a key was already existent
+                if (!mProgramMap.containsKey(channel.getOriginalNetworkId())) {
+                    mProgramMap.put(channel.getOriginalNetworkId(), programsForChannel);
+                }
             }
         }
 
