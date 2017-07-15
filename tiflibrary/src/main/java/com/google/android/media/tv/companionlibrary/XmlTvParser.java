@@ -544,6 +544,15 @@ public class XmlTvParser {
         public List<Program> getPrograms(Channel channel) {
             return mProgramMap.get(channel.getOriginalNetworkId());
         }
+
+        /**
+         * Returns a list of programs found by the XmlTvParser for a given channel.
+         * @param id The id to obtain programs for.
+         * @return A list of programs that belong to that id.
+         */
+        public List<Program> getPrograms(int id) {
+            return mProgramMap.get(id);
+        }
     }
 
     private static class XmlTvIcon {
