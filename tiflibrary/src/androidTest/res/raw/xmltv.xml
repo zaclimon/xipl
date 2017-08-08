@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE tv SYSTEM "xmltv.dtd">
+<!--
+xmltv.dtd are extended to be align with Android TV Input Framework and contain static video
+contents. For details, please see the documentation of XmlTvParser class.
+-->
+<tv>
+    <channel id="com.example.android.sampletvinput.2-1" repeat-programs="true">
+        <display-name>XML Test Channel</display-name>
+        <display-number>2</display-number>
+    </channel>
+    <programme
+        channel="com.example.android.sampletvinput.2-1"
+        start="20150817000000 +0000"
+        stop="20150817000147 +0000"
+        video-src="https://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue.mp4"
+        video-type="HTTP_PROGRESSIVE">
+        <title>Introducing Gmail Blue</title>
+        <desc>Introducing Gmail Blue</desc>
+        <icon src="https://storage.googleapis.com/android-tv/images/gmail.png"/>
+        <category>EDUCATION</category>
+        <category>TECH_SCIENCE</category>
+        <rating system="com.android.tv">
+            <value>com.android.tv/US_TV/US_TV_14/US_TV_D/US_TV_L</value>
+        </rating>
+    </programme>
+    <programme
+        channel="com.example.android.sampletvinput.2-1"
+        start="20150817000147 +0000"
+        stop="20150817004502 +0000"
+        video-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/GoogleIO-2014-CastingToTheFuture.mp4"
+        video-type="HTTP_PROGRESSIVE">
+        <title>Google I/O 2014 - Casting To The Future</title>
+        <desc>Google I/O 2014 - Casting To The Future</desc>
+        <icon
+            src="https://storage.googleapis.com/gtv-videos-bucket/sample/images_480x270/ToTheFuture2-480x270.jpg"/>
+        <category>EDUCATION</category>
+        <category>TECH_SCIENCE</category>
+        <rating system="com.android.tv">
+            <value>com.android.tv/US_TV/US_TV_PG/US_TV_D</value>
+        </rating>
+    </programme>
+    <programme
+        channel="com.example.android.sampletvinput.2-1"
+        start="20150817004502 +0000"
+        stop="20150817005902 +0000"
+        video-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/GoogleIO-2014-MakingGoogleCastReadyAppsDiscoverable.mp4"
+        video-type="HTTP_PROGRESSIVE">
+        <title>Google I/O 2014 - Making Google Cast Ready Apps Discoverable</title>
+        <desc>Google I/O 2014 - Making Google Cast Ready Apps Discoverable</desc>
+        <icon
+            src="https://storage.googleapis.com/gtv-videos-bucket/sample/images_480x270/MakingGoogleCastReadyAppsDiscoverable-480-270.jpg"/>
+        <category>EDUCATION</category>
+        <category>TECH_SCIENCE</category>
+        <rating system="com.android.tv">
+            <value>com.android.tv/US_TV/US_TV_14/US_TV_D/US_TV_L</value>
+        </rating>
+    </programme>
+    <programme
+        channel="com.example.android.sampletvinput.2-1"
+        start="20150817005902 +0000"
+        stop="20150817010113 +0000"
+        video-src="https://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole.mp4"
+        video-type="HTTP_PROGRESSIVE">
+        <title>Introducing Google Fiber to the Pole</title>
+        <desc>Introducing Google Fiber to the Pole.</desc>
+        <icon src="https://storage.googleapis.com/android-tv/images/fiber.png"/>
+        <category>EDUCATION</category>
+        <category>TECH_SCIENCE</category>
+        <rating system="com.android.tv">
+            <value>com.android.tv/US_TV/US_TV_PG/US_TV_D</value>
+        </rating>
+    </programme>
+    <programme
+        channel="com.example.android.sampletvinput.2-1"
+        start="20150817010113 +0000"
+        stop="20150817010315 +0000"
+        video-src="https://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole.mp4"
+        video-type="HTTP_PROGRESSIVE">
+        <title>Introducing Google Nose</title>
+        <desc>Introducing Google Nose</desc>
+        <icon src="https://storage.googleapis.com/android-tv/images/fiber.png"/>
+        <category>EDUCATION</category>
+        <category>TECH_SCIENCE</category>
+        <rating system="US_TV">
+            <value>com.android.tv/US_TV/US_TV_PG/US_TV_D</value>
+        </rating>
+        <rating system="com.android.tv">
+            <value>com.android.tv/US_TV/US_TV_PG/US_TV_D</value>
+        </rating>
+    </programme>
+</tv>
+
