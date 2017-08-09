@@ -16,6 +16,10 @@
 
 package com.zaclimon.iptvproviderlibrarydemo;
 
+import android.content.ComponentName;
+
+import com.zaclimon.iptvproviderlibrary.service.ProviderTvInputService;
+
 /**
  * Constants class used for the demo app for aipl.
  *
@@ -27,4 +31,8 @@ public class DemoConstants {
 
     // Preferences
     public static final String CHANNEL_LOGO_PREFERENCE = "channel_logo";
+    public static final String PLAYLIST_URL_PREFERENCE = "playlist_url";
+
+    // Channel configuration
+    public static final ComponentName DEMO_TV_INPUT_COMPONENT = new ComponentName("com.zaclimon.iptvproviderlibrarydemo", ProviderTvInputService.class.getName());
 }

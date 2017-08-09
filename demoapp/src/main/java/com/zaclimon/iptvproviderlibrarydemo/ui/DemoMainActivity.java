@@ -18,12 +18,19 @@ package com.zaclimon.iptvproviderlibrarydemo.ui;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v17.leanback.app.BrowseFragment;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.zaclimon.iptvproviderlibrary.util.ActivityUtil;
+import com.zaclimon.iptvproviderlibrarydemo.DemoConstants;
 import com.zaclimon.iptvproviderlibrarydemo.R;
+import com.zaclimon.iptvproviderlibrarydemo.ui.urlinput.UrlInputActivity;
+
+import java.net.URL;
 
 /**
  * Demo Activity showcasing the Android IPTV Provider Library (aipl)
@@ -34,6 +41,8 @@ import com.zaclimon.iptvproviderlibrarydemo.R;
 
 public class DemoMainActivity extends Activity {
 
+    private final int URL_REQUEST_CODE = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -41,13 +50,25 @@ public class DemoMainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         if (ActivityUtil.isTvMode(this)) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.tv_fragment_placeholder, new DemoMainFragment());
-            transaction.commit();
+            Intent intent = new Intent(this, UrlInputActivity.class);
+            startActivityForResult(intent, URL_REQUEST_CODE);
         } else {
             Toast.makeText(this, R.string.device_not_android_tv, Toast.LENGTH_SHORT).show();
             finish();
         }
+
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == URL_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.add(R.id.tv_fragment_placeholder, new DemoMainFragment());
+            transaction.commit();
+        } else {
+            finish();
+        }
+
+    }
 }

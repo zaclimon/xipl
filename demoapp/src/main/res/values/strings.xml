@@ -9,7 +9,12 @@
     <string name="current_status_text">Current status: %1$s</string>
     <string name="deactivated_text">Deactivated</string>
     <string name="device_not_android_tv">Your device is not running Android TV!</string>
+    <string name="enter_playlist_url">Please enter your playlist URL</string>
     <string name="no_text">No</string>
+    <string name="playlist_url">Playlist URL</string>
+    <string name="playlist_url_invalid">URL invalid</string>
     <string name="settings_text">Settings</string>
+    <string name="sync_channels">Syncing channels&#8230;</string>
+    <string name="tv_input_label">aidl Demo</string>
     <string name="yes_text">Yes</string>
 </resources>

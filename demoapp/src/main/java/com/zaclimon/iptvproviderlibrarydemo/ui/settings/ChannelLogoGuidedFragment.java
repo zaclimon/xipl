@@ -16,6 +16,7 @@
 
 package com.zaclimon.iptvproviderlibrarydemo.ui.settings;
 
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.media.tv.TvContract;
@@ -26,11 +27,14 @@ import android.preference.PreferenceManager;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
+import android.widget.Toast;
 
+import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.iptvproviderlibrarydemo.DemoConstants;
 import com.zaclimon.iptvproviderlibrarydemo.R;
+import com.zaclimon.iptvproviderlibrarydemo.service.DemoEpgService;
 
 import java.util.List;
 
@@ -89,7 +93,28 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         }
 
         editor.apply();
-        getActivity().finish();
+
+        boolean modifiedAction = sharedPreferences.getBoolean(DemoConstants.CHANNEL_LOGO_PREFERENCE, true);
+
+         /*
+          Sync the channels to reflect the latest changes only if the stream type is different from
+          before. Remove only the logos if the user doesn't want them. In that case, do an AsyncTask
+          since it might freeze the user experience.
+          */
+
+        if (modifiedAction != initialAction) {
+
+            if (!modifiedAction) {
+                new AsyncRemoveLogos().execute();
+            }
+
+            String inputId = TvContract.buildInputId(DemoConstants.DEMO_TV_INPUT_COMPONENT);
+            EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), DemoEpgService.class));
+            Toast.makeText(getActivity(), R.string.sync_channels, Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+        } else {
+            getActivity().finish();
+        }
     }
 
     /**
