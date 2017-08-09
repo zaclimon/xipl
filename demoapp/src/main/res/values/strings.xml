@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">IPTV Provider Library Demo</string>
+    <string name="about_text">About</string>
+    <string name="about_title">Android IPTV Provider Library (aidl) Demo</string>
+    <string name="about_description">Demo application</string>
+    <string name="activated_text">Activated</string>
+    <string name="channel_logo_title">Channel logo</string>
+    <string name="channel_logo_description">Enables or removes the channel logos when streaming channels on the TV app.</string>
+    <string name="current_status_text">Current status: %1$s</string>
+    <string name="deactivated_text">Deactivated</string>
+    <string name="device_not_android_tv">Your device is not running Android TV!</string>
+    <string name="no_text">No</string>
+    <string name="settings_text">Settings</string>
+    <string name="yes_text">Yes</string>
+</resources>

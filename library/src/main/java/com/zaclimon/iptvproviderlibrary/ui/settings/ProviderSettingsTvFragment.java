@@ -67,7 +67,7 @@ public abstract class ProviderSettingsTvFragment extends RowsFragment {
      *
      * @return the Activity managing all the settings section.
      */
-    protected abstract Class<Activity> getSettingsElementActivity();
+    protected abstract Class<? extends Activity> getSettingsElementActivity();
 
     /**
      * Class offering an {@link OnItemViewClickedListener} for the various settings elements.

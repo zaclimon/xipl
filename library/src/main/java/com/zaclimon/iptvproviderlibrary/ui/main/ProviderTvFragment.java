@@ -34,7 +34,6 @@ import android.support.v17.leanback.widget.RowPresenter;
 import android.util.SparseArray;
 import android.widget.Toast;
 
-import com.zaclimon.iptvproviderlibrary.R;
 
 import java.util.HashMap;
 import java.util.Map;

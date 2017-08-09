@@ -1,4 +1,4 @@
-package com.zaclimon.iptvproviderlibrary;
+package com.zaclimon.iptvproviderlibrarydemo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
