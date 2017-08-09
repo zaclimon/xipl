@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="animal_wildlife_channels">
+        <item>ANIMAL</item>
+        <item>DISCOVERY</item>
+        <item>NATIONAL GEOGRAPHIC</item>
+        <item>NAT GEO</item>
+        <item>EDEN</item>
+        <item>ANIMAL PLANET</item>
+        <item>WORLD FISHING</item>
+    </string-array>
+
+    <string-array name="arts_channels">
+        <item>SKY ARTS</item>
+        <item>A&#38;E</item>
+    </string-array>
+
+    <string-array name="comedy_channels">
+        <item>COMEDY CENTRAL</item>
+        <item>COMEDY GOLD</item>
+    </string-array>
+
+    <string-array name="drama_channels">
+        <item>ALIBI</item>
+        <item>E4</item>
+        <item>CBS ACTION</item>
+        <item>DRAMA</item>
+        <item>A&#38;E</item>
+        <item>CW</item>
+        <item>FREEFORM</item>
+        <item>SHOWCASE</item>
+    </string-array>
+
+    <string-array name="education_channels">
+        <item>DISCOVERY</item>
+        <item>NATIONAL GEOGRAPHIC</item>
+        <item>NAT GEO</item>
+        <item>BBC EARTH</item>
+        <item>EDEN</item>
+        <item>RT DOCUMENTARY</item>
+        <item>INSIGHT</item>
+        <item>DIY NETWORK</item>
+        <item>HISTORY</item>
+    </string-array>
+
+    <string-array name="entertainment_channels">
+        <item>24/7</item>
+        <item>BBC ONE</item>
+        <item>BBC TWO</item>
+        <item>ITV</item>
+        <item>CHANNEL 4</item>
+        <item>CHANNEL 5</item>
+        <item>SKY ONE</item>
+        <item>SKY LIVING</item>
+        <item>SKY ATLANTIC</item>
+        <item>W (WATCH)</item>
+        <item>UK: GOLD</item>
+        <item>DAVE</item>
+        <item>SYFY</item>
+        <item>BBC ALBA</item>
+        <item>BBC FOUR</item>
+        <item>LONDON LIVE</item>
+        <item>ITV</item>
+        <item>FOX HD</item>
+        <item>TLC</item>
+        <item>SKY TWO</item>
+        <item>MORE4</item>
+        <item>4SEVEN</item>
+        <item>CHALLENGE</item>
+        <item>CBS REALITY</item>
+        <item>E!</item>
+        <item>PICK</item>
+        <item>VICELAND</item>
+        <item>REALLY</item>
+        <item>SONY CHANNEL</item>
+        <item>SPIKE</item>
+        <item>5 USA</item>
+        <item>5 STAR</item>
+        <item>TRUE ENTERTAINMENT</item>
+        <item>AMC</item>
+        <item>DMAX</item>
+        <item>FORCES TV</item>
+        <item>YESTERDAY</item>
+        <item>STV</item>
+        <item>QVC</item>
+        <item>RTE</item>
+        <item>ABC</item>
+        <item>AFN PRIME</item>
+        <item>AFN PULSE</item>
+        <item>AFN SPECTRUM</item>
+        <item>AMERICAN HEROES CHANNEL</item>
+        <item>BBC AMERICA</item>
+        <item>BET</item>
+        <item>BRAVO</item>
+        <item>CBC</item>
+        <item>USA/CA: CBS</item>
+        <item>CHCH</item>
+        <item>CITY</item>
+        <item>COTTAGE LIFE</item>
+        <item>CTV</item>
+        <item>CW</item>
+        <item>DEJA VIEW</item>
+        <item>EL REY NETWORK</item>
+        <item>FX</item>
+        <item>HIFI</item>
+        <item>GLOBAL</item>
+        <item>ION TELEVISION</item>
+        <item>ME TV</item>
+        <item>MTV</item>
+        <item>NBC HD</item>
+        <item>OWN</item>
+        <item>OXYGEN</item>
+        <item>PBS</item>
+        <item>PEACH TREE</item>
+        <item>SHOWCASE</item>
+        <item>SLICE</item>
+        <item>SPIKE</item>
+        <item>TBS</item>
+        <item>TNT</item>
+        <item>TRUTV</item>
+        <item>TV LAND</item>
+        <item>USA NETWORK</item>
+        <item>USA/CA: CI</item>
+        <item>REDBULL TV</item>
+        <item>HEROES&#38;ICONS</item>
+    </string-array>
+
+    <string-array name="family_kids_channels">
+        <item>DISCOVERY</item>
+        <item>BABY TV</item>
+        <item>BOOOMERANG</item>
+        <item>CARTOONITO</item>
+        <item>CARTOON NETWORK</item>
+        <item>CBBC</item>
+        <item>CBEEBIES</item>
+        <item>CITV</item>
+        <item>DISNEY</item>
+        <item>NICK</item>
+        <item>POP</item>
+        <item>RTE JUNIOR</item>
+        <item>STARZ KIDS AND FAMILY</item>
+        <item>SPROUT</item>
+        <item>TELETOON</item>
+        <item>TREEHOUSE</item>
+        <item>YTV</item>
+    </string-array>
+
+    <string-array name="gaming_channels">
+        <item>GSN</item>
+    </string-array>
+
+    <string-array name="lifestyle_channels">
+        <item>LIFETIME</item>
+        <item>FOOD NETWORK</item>
+        <item>COOKING CHANNEL</item>
+        <item>GOOD FOOD</item>
+        <item>FYI</item>
+        <item>OLN</item>
+        <item>DIY NETWORK</item>
+        <item>HGTV</item>
+        <item>OUTDOOR CHANNEL</item>
+    </string-array>
+
+    <string-array name="movies_channels">
+        <item>SKY CINEMA</item>
+        <item>TRUE MOVIES</item>
+        <item>FILM4</item>
+        <item>MOVIES</item>
+        <item>TCM</item>
+        <item>HORROR CHANNEL</item>
+        <item>AFN MOVIES</item>
+        <item>CINEMAX</item>
+        <item>HALLMARK</item>
+        <item>HBO</item>
+        <item>LIFETIME MOVIE NETWORK</item>
+        <item>SHOWTIME</item>
+        <item>SILVER SCREEN CLASSICS</item>
+        <item>STARZ</item>
+        <item>THE MOVIE NETWORK</item>
+    </string-array>
+
+    <string-array name="music_channels">
+        <item>CAPTITAL TV</item>
+        <item>CLUBLAND</item>
+        <item>HEART TV</item>
+        <item>KERRANG</item>
+        <item>KISS</item>
+        <item>MTV</item>
+        <item>TRACE URBAN</item>
+        <item>VINTAGE TV</item>
+        <item>VIRGIN RADIO</item>
+        <item>VIVA THE HITS</item>
+        <item>VH1</item>
+        <item>COUNTRY MUSIC TELEVISION</item>
+    </string-array>
+
+    <string-array name="news_channels">
+        <item>AIRIRANG</item>
+        <item>AL JAZERRA</item>
+        <item>BBC NEWS</item>
+        <item>CNN</item>
+        <item>DW</item>
+        <item>EURONEWS</item>
+        <item>FOX NEWS</item>
+        <item>FRANCE 24</item>
+        <item>RUSSIA TODAY</item>
+        <item>SKY NEWS</item>
+        <item>TRT WORLD</item>
+        <item>RTE NEWS</item>
+        <item>ICI RDI</item>
+        <item>ABC NEWS</item>
+        <item>AFN NEWS</item>
+        <item>BBC WORLD NEWS</item>
+        <item>BLOOMBERG</item>
+        <item>BNN</item>
+        <item>CNBC</item>
+        <item>CP 24</item>
+        <item>CTV NEWS</item>
+        <item>FOX 43</item>
+        <item>FOX BUSINESS NETWORK</item>
+        <item>HLN</item>
+        <item>MSNBC</item>
+        <item>WGN NEWS</item>
+    </string-array>
+
+    <string-array name="premier_channels"></string-array>
+
+    <string-array name="shopping_channels">
+        <item>THE SHOPPING CHANNEL</item>
+    </string-array>
+
+    <string-array name="sports_channels">
+        <item>SKY SPORTS</item>
+        <item>BT SPORT</item>
+        <item>RACING</item>
+        <item>RACES</item>
+        <item>BOX</item>
+        <item>EUROSPORT</item>
+        <item>PREMIER SPORTS</item>
+        <item>MOTORS</item>
+        <item>CHELSEA TV</item>
+        <item>LFC TV</item>
+        <item>MUTV</item>
+        <item>ABERDEEN FC</item>
+        <item>CELTIC TV</item>
+        <item>HEARTS FC TV</item>
+        <item>RANGERS TV</item>
+        <item>BEIN SPORT</item>
+        <item>OSN SPORTS</item>
+        <item>FOX 506</item>
+        <item>LE SPORTS</item>
+        <item>SKY BUNDESLIGA</item>
+        <item>TV2 SPORT</item>
+        <item>TV3 SPORT</item>
+        <item>CANAL LIGA</item>
+        <item>CANAL+FUTBOL</item>
+        <item>ARENA SPORT</item>
+        <item>SFR SPORT</item>
+        <item>IL:ONE</item>
+        <item>IL:SPORT</item>
+        <item>ELEVEN</item>
+        <item>MIO STADIUM</item>
+        <item>FOX SPORTS</item>
+        <item>MOTO GP</item>
+        <item>SKYNET SPORTS</item>
+        <item>ZIGGO SPORT</item>
+        <item>BENEFICA</item>
+        <item>SPORTS TV</item>
+        <item>C MORE</item>
+        <item>VIASAT</item>
+        <item>LIG TV</item>
+        <item>AFN SPORT</item>
+        <item>BIG TEN NETWORK</item>
+        <item>CBS SPORTS NETWORK</item>
+        <item>CBSN</item>
+        <item>ESPN</item>
+        <item>LONGHORN</item>
+        <item>NBCSN</item>
+        <item>NBC EXTRA TIME</item>
+        <item>NBC GOLF</item>
+        <item>OFFICIAL OLYMPIC CHANNEL</item>
+        <item>PAC12</item>
+        <item>RDS</item>
+        <item>SEC NETWORK</item>
+        <item>SPORTSNET</item>
+        <item>TENNIS CHANNEL</item>
+        <item>TSN</item>
+        <item>UFC</item>
+        <item>WILLOW CRICKET</item>
+        <item>WWE</item>
+        <item>NHL</item>
+        <item>NFL</item>
+        <item>NBA</item>
+        <item>MLB</item>
+    </string-array>
+
+    <string-array name="tech_science_channels">
+        <item>DISCOVERY</item>
+        <item>SPACE HD</item>
+        <item>SYFY</item>
+    </string-array>
+
+    <string-array name="travel_channels">
+        <item>TRAVEL</item>
+        <item>DESTINATION AMERICA</item>
+    </string-array>
+
+</resources>
