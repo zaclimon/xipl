@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IPTV Provider library</string>
+    <string name="channel_stream_failure">Stream failure. Please try again later or contact your provider</string>
+    <string name="stream_failure_retry">Stream failure, retrying&#8230;</string>
 </resources>

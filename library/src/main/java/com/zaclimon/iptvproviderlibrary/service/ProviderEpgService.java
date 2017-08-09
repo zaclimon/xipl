@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Isaac Pateau
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.zaclimon.iptvproviderlibrary.service;
 
 import android.app.job.JobParameters;
@@ -42,8 +58,22 @@ public abstract class ProviderEpgService extends EpgSyncJobService {
     private String mInputId;
     private XmlTvParser.TvListing mTvListing;
 
+    /**
+     * Used to get the playlist URL from a provider.
+     * @return the M3U playlist url for a given provider
+     */
     protected abstract String getPlaylistUrl();
+
+    /**
+     * Gets the EPG URL for a given provider (if any)
+     * @return the EPG URL for a provider
+     */
     protected abstract String getEpgUrl();
+
+    /**
+     * Returns the {@link ChannelProperties} for a given provider
+     * @return the properties for a provider.
+     */
     protected abstract ChannelProperties getChannelProperties();
 
     @Override
