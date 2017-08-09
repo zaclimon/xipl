@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    Let's use Google's square cards example CardView for the dimensions found here:
+    https://github.com/googlesamples/leanback-showcase/blob/master/app/src/main/res/values/dims.xml
+    -->
+    <dimen name="cardview_presenter_width">128dp</dimen>
+    <dimen name="cardview_presenter_height">128dp</dimen>
+</resources>

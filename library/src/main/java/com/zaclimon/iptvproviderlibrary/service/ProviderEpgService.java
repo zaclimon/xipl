@@ -159,7 +159,7 @@ public abstract class ProviderEpgService extends EpgSyncJobService {
      * as the EPG guide from a user.
      *
      * @author zaclimon
-     *         Creation date: 11/06/17
+     * Creation date: 11/06/17
      */
     public class AsyncEpgDownload extends AsyncTask<Void, Void, Boolean> {
 
