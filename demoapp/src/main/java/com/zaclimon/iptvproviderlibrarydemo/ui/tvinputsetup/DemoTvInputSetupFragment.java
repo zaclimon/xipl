@@ -31,9 +31,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.media.tv.companionlibrary.ChannelSetupFragment;
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
+import com.zaclimon.iptvproviderlibrary.service.ProviderEpgService;
 import com.zaclimon.iptvproviderlibrarydemo.DemoConstants;
 import com.zaclimon.iptvproviderlibrarydemo.R;
 import com.zaclimon.iptvproviderlibrarydemo.service.DemoEpgService;
@@ -76,6 +78,16 @@ public class DemoTvInputSetupFragment extends ChannelSetupFragment {
     @Override
     public void onScanFinished() {
         getActivity().finish();
+    }
+
+    @Override
+    public void onScanError(int reason) {
+
+        if (reason == EpgSyncJobService.ERROR_NO_CHANNELS) {
+            Toast.makeText(getActivity(), R.string.channel_sync_failure, Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+        }
+
     }
 
     @Override
