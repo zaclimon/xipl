@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 The Android Open Source Project, Isaac Pateau
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.zaclimon.iptvproviderlibrary.ui.vod;
 
 import android.app.Activity;
@@ -9,10 +25,16 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.PlaybackControlsRow;
 import android.widget.Toast;
 
-import static java.security.AccessController.getContext;
 
 /**
- * Created by isaac on 17-08-11.
+ * PlayerGlue for video playback
+ * <p>
+ * Adapted from the leanback-showcase implementation found here:
+ * https://github.com/googlesamples/leanback-showcase/blob/master/app/src/main/java/android/support/v17/leanback/supportleanbackshowcase/app/media/VideoMediaPlayerGlue.java
+ * <p>
+ * Original import date: 02/07/17
+ *
+ * @param <T>
  */
 
 public class ProviderVideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTransportControlGlue<T> {
