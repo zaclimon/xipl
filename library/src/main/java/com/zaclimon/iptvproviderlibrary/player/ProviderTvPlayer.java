@@ -27,6 +27,7 @@ import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -221,7 +222,7 @@ public class ProviderTvPlayer implements TvPlayer {
      *
      * @param listener the given listener for callbacks.
      */
-    public void addListener(ExoPlayer.EventListener listener) {
+    public void addListener(Player.EventListener listener) {
         player.addListener(listener);
     }
 }

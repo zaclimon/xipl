@@ -33,6 +33,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -45,7 +46,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.zaclimon.iptvproviderlibrary.R;
 
-
 /**
  * This implementation extends the {@link PlayerAdapter} with a {@link SimpleExoPlayer}.
  * <p>
@@ -55,7 +55,7 @@ import com.zaclimon.iptvproviderlibrary.R;
  * <p>
  * Original import date: 02/07/17
  */
-public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventListener {
+public class ExoPlayerAdapter extends PlayerAdapter implements Player.EventListener {
 
     final SimpleExoPlayer mPlayer;
     final Handler mHandler = new Handler();
@@ -180,7 +180,7 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
 
     @Override
     public boolean isPlaying() {
-        boolean exoPlayerIsPlaying = mPlayer.getPlaybackState() == ExoPlayer.STATE_READY
+        boolean exoPlayerIsPlaying = mPlayer.getPlaybackState() == Player.STATE_READY
                 && mPlayer.getPlayWhenReady();
         return mInitialized && exoPlayerIsPlaying;
     }
@@ -309,14 +309,14 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         mBufferingStart = false;
-        if (playbackState == ExoPlayer.STATE_READY && !mInitialized) {
+        if (playbackState == Player.STATE_READY && !mInitialized) {
             mInitialized = true;
             if (mSurfaceHolderGlueHost == null || mHasDisplay) {
                 getCallback().onPreparedStateChanged(ExoPlayerAdapter.this);
             }
-        } else if (playbackState == ExoPlayer.STATE_BUFFERING) {
+        } else if (playbackState == Player.STATE_BUFFERING) {
             mBufferingStart = true;
-        } else if (playbackState == ExoPlayer.STATE_ENDED) {
+        } else if (playbackState == Player.STATE_ENDED) {
             getCallback().onPlayStateChanged(ExoPlayerAdapter.this);
             getCallback().onPlayCompleted(ExoPlayerAdapter.this);
         }
@@ -351,6 +351,10 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
 
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+    }
+
+    @Override
+    public void onRepeatModeChanged(int repeatMode) {
     }
 
     /**

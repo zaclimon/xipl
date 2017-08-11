@@ -28,8 +28,8 @@ dependencies {
     })
 
     compile 'com.android.support:leanback-v17:26.0.1'
-    compile 'com.google.android.exoplayer:exoplayer-core:r2.4.4'
-    compile 'com.google.android.exoplayer:exoplayer-hls:r2.4.4'
+    compile 'com.google.android.exoplayer:exoplayer-core:r2.5.1'
+    compile 'com.google.android.exoplayer:exoplayer-hls:r2.5.1'
     testCompile 'junit:junit:4.12'
     compile project(':tiflibrary')
 }
