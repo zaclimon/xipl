@@ -78,7 +78,7 @@ public interface ContentPersistence {
      *
      * @return the total number of elements for this medium.
      */
-    int size();
+    long size();
 
     /**
      * Gets the size for a given category in the persistence medium
@@ -86,5 +86,5 @@ public interface ContentPersistence {
      * @param category the category in which a size is wanted
      * @return the total number of elements for that given category.
      */
-    int size(String category);
+    long size(String category);
 }
