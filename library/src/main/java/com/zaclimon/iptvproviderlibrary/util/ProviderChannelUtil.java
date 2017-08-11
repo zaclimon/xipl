@@ -17,13 +17,11 @@
 package com.zaclimon.iptvproviderlibrary.util;
 
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
-import com.zaclimon.iptvproviderlibrary.ChannelProperties;
+import com.zaclimon.iptvproviderlibrary.properties.ChannelProperties;
 import com.zaclimon.iptvproviderlibrary.Constants;
 import com.zaclimon.iptvproviderlibrary.R;
 import com.zaclimon.iptvproviderlibrary.model.AvContent;

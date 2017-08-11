@@ -14,7 +14,7 @@ import android.util.DisplayMetrics;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.zaclimon.iptvproviderlibrary.R;
-import com.zaclimon.iptvproviderlibrary.VodProperties;
+import com.zaclimon.iptvproviderlibrary.properties.VodProperties;
 
 /**
  * Fragment responsible for a provider's VOD content playback

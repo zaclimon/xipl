@@ -1,4 +1,4 @@
-package com.zaclimon.iptvproviderlibrary;
+package com.zaclimon.iptvproviderlibrary.properties;
 
 /**
  * Base interface in which one can define properties for VOD content.

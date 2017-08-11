@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zaclimon.iptvproviderlibrary;
+package com.zaclimon.iptvproviderlibrary.properties;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 
