@@ -18,12 +18,9 @@ package com.zaclimon.iptvproviderlibrary.ui.settings;
 
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.util.Log;
 
-import com.zaclimon.iptvproviderlibrary.R;
 import com.zaclimon.iptvproviderlibrary.ui.components.cardview.CardViewPresenter;
 
 import java.util.List;

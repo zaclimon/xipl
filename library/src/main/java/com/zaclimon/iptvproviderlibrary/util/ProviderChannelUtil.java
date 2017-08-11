@@ -21,11 +21,10 @@ import android.content.Context;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
-import com.zaclimon.iptvproviderlibrary.properties.ChannelProperties;
 import com.zaclimon.iptvproviderlibrary.Constants;
 import com.zaclimon.iptvproviderlibrary.R;
 import com.zaclimon.iptvproviderlibrary.model.AvContent;
-
+import com.zaclimon.iptvproviderlibrary.properties.ChannelProperties;
 
 import org.json.JSONArray;
 import org.json.JSONException;

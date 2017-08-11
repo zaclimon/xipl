@@ -28,8 +28,8 @@ import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
-import com.zaclimon.iptvproviderlibrary.properties.ChannelProperties;
 import com.zaclimon.iptvproviderlibrary.Constants;
+import com.zaclimon.iptvproviderlibrary.properties.ChannelProperties;
 import com.zaclimon.iptvproviderlibrary.util.ProviderChannelUtil;
 import com.zaclimon.iptvproviderlibrary.util.RichFeedUtil;
 

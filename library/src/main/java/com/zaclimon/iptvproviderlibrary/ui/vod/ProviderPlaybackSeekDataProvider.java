@@ -17,15 +17,7 @@
 
 package com.zaclimon.iptvproviderlibrary.ui.vod;
 
-import android.app.Activity;
-import android.os.Build;
-import android.support.v17.leanback.media.PlaybackTransportControlGlue;
-import android.support.v17.leanback.media.PlayerAdapter;
-import android.support.v17.leanback.widget.Action;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.PlaybackControlsRow;
 import android.support.v17.leanback.widget.PlaybackSeekDataProvider;
-import android.widget.Toast;
 
 /**
  * Base {@link PlaybackSeekDataProvider} for seeking through a {@link ProviderVideoMediaPlayerGlue}

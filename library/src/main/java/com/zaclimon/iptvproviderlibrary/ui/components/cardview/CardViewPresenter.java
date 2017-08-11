@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.zaclimon.iptvproviderlibrary.R;
 import com.zaclimon.iptvproviderlibrary.model.AvContent;
 import com.zaclimon.iptvproviderlibrary.ui.settings.ProviderSettingsObjectAdapter;
-import com.zaclimon.iptvproviderlibrary.util.ActivityUtil;
 
 /**
  * Custom {@link Presenter} class that is used to show {@link ImageCardView}

@@ -23,7 +23,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.view.Surface;
 
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;

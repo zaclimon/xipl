@@ -19,11 +19,8 @@ package com.zaclimon.iptvproviderlibrary.util;
 import android.app.Activity;
 import android.app.UiModeManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.text.TextUtils;
 
-import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.UI_MODE_SERVICE;
 
 /**
