@@ -16,12 +16,10 @@
 
 package com.zaclimon.iptvproviderlibrarydemo;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
-import com.zaclimon.iptvproviderlibrary.ChannelProperties;
-import com.zaclimon.iptvproviderlibrary.Constants;
+import com.zaclimon.iptvproviderlibrary.properties.ChannelProperties;
 
 /**
  * Concrete implementation of the {@link ChannelProperties} interface for interacting with a given

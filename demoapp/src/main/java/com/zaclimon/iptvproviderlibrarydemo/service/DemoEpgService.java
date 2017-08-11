@@ -19,7 +19,7 @@ package com.zaclimon.iptvproviderlibrarydemo.service;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.zaclimon.iptvproviderlibrary.ChannelProperties;
+import com.zaclimon.iptvproviderlibrary.properties.ChannelProperties;
 import com.zaclimon.iptvproviderlibrary.service.ProviderEpgService;
 import com.zaclimon.iptvproviderlibrarydemo.DemoChannelPropertiesImpl;
 import com.zaclimon.iptvproviderlibrarydemo.DemoConstants;
