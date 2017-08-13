@@ -1,4 +1,4 @@
-<manifest package="com.zaclimon.iptvproviderlibrarydemo"
+<manifest package="com.zaclimon.xipldemo"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -16,18 +16,18 @@
         android:banner="@drawable/banner"
         android:theme="@style/Theme.Leanback">
 
-        <activity android:name="com.zaclimon.iptvproviderlibrarydemo.ui.DemoMainActivity">
+        <activity android:name="com.zaclimon.xipldemo.ui.DemoMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.settings.DemoSettingsElementActivity"/>
-        <activity android:name=".ui.urlinput.UrlInputActivity" android:exported="true"/>
-        <activity android:name=".ui.tvinputsetup.DemoTvInputSetupActivity" android:exported="true"/>
+        <activity android:name="com.zaclimon.xipldemo.ui.settings.DemoSettingsElementActivity"/>
+        <activity android:name="com.zaclimon.xipldemo.ui.urlinput.UrlInputActivity" android:exported="true"/>
+        <activity android:name="com.zaclimon.xipldemo.ui.tvinputsetup.DemoTvInputSetupActivity" android:exported="true"/>
 
-        <service android:name="com.zaclimon.iptvproviderlibrary.service.ProviderTvInputService"
+        <service android:name="com.zaclimon.xipl.service.ProviderTvInputService"
                  android:label="@string/tv_input_label"
                  android:permission="android.permission.BIND_TV_INPUT">
             <intent-filter>
@@ -39,7 +39,7 @@
         </service>
 
         <service
-            android:name="com.zaclimon.iptvproviderlibrarydemo.service.DemoEpgService"
+            android:name="com.zaclimon.xipldemo.service.DemoEpgService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true" />
 

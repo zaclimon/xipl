@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">IPTV Provider Library Demo</string>
+    <string name="app_name">xipl Demo</string>
     <string name="about_text">About</string>
-    <string name="about_title">Android IPTV Provider Library (aidl) Demo</string>
+    <string name="about_title">Xtream Codes IPTV Provider (xipl) Demo</string>
     <string name="about_description">Demo application</string>
     <string name="activated_text">Activated</string>
     <string name="channel_logo_title">Channel logo</string>
