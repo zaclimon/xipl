@@ -107,6 +107,13 @@ public abstract class VodTvSectionFragment extends RowsFragment {
      */
     protected abstract CardViewImageProcessor getImageProcessor();
 
+    /**
+     * Gets the playback Activity required to play a given VOD content
+     *
+     * @return the playback activity
+     */
+    protected abstract Class<? extends VodPlaybackActivity> getPlaybackActivity();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -270,7 +277,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             if (item instanceof AvContent) {
                 // The item comes from an AvContent element.
                 AvContent avContent = (AvContent) item;
-                Intent intent = new Intent(getActivity(), VodPlaybackActivity.class);
+                Intent intent = new Intent(getActivity(), getPlaybackActivity());
                 Bundle bundle = new Bundle();
                 bundle.putString(AV_CONTENT_TITLE_BUNDLE, avContent.getTitle());
                 bundle.putString(AV_CONTENT_LOGO_BUNDLE, avContent.getLogo());
