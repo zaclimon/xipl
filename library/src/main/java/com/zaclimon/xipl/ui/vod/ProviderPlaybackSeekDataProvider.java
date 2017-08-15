@@ -33,10 +33,20 @@ public class ProviderPlaybackSeekDataProvider extends PlaybackSeekDataProvider {
 
     private long[] durations;
 
+    /**
+     * Default constructor
+     *
+     * @param duration the total duration of the content.
+     */
     public ProviderPlaybackSeekDataProvider(long duration) {
         init(duration);
     }
 
+    /**
+     * Initializes the Provider.
+     *
+     * @param duration the duration of the content.
+     */
     private void init(long duration) {
         int steps = (int) (duration / SEEK_STEPS_DURATION_MILLIS);
         durations = new long[steps];

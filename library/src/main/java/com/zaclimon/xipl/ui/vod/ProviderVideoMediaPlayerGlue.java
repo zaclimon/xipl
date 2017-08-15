@@ -41,6 +41,12 @@ public class ProviderVideoMediaPlayerGlue<T extends PlayerAdapter> extends Playb
 
     private PlaybackControlsRow.PictureInPictureAction mPipAction;
 
+    /**
+     * The default constructor for this {@link PlaybackTransportControlGlue}
+     *
+     * @param context the context used for this glue.
+     * @param impl the concrete implementation of the media player.
+     */
     public ProviderVideoMediaPlayerGlue(Activity context, T impl) {
         super(context, impl);
         mPipAction = new PlaybackControlsRow.PictureInPictureAction(context);

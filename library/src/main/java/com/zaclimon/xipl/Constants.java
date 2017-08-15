@@ -21,7 +21,7 @@ import android.media.tv.TvContract;
 import java.util.regex.Pattern;
 
 /**
- * List of constants to be used throughout the application's lifecycle.
+ * List of constants to be used for the library throughout the application's lifecycle.
  *
  * @author zaclimon
  * Creation date: 17/06/17
