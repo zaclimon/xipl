@@ -64,6 +64,15 @@ public interface ContentPersistence {
     List<AvContent> listAllItems();
 
     /**
+     * Gives a list of {@link AvContent} containing a given title. The list can be sorted or not.
+     *
+     * @param title the title in which the content must correspond
+     * @param isAlphabeticallySorted whether the retrieved contents should be sorted by alphabetical order
+     * @return the list of contents.
+     */
+    List<AvContent> searchTitle(String title, boolean isAlphabeticallySorted);
+
+    /**
      * Gives a list of the {@link AvContent} belonging to a given category. The list can be sorted
      * or not.
      *

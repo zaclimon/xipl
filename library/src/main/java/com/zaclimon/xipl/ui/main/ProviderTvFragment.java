@@ -17,6 +17,7 @@
 package com.zaclimon.xipl.ui.main;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseFragment;
@@ -27,6 +28,9 @@ import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
 import android.support.v17.leanback.widget.Row;
 import android.util.SparseArray;
+import android.view.View;
+
+import com.zaclimon.xipl.ui.search.ProviderSearchActivity;
 
 import java.util.Map;
 
@@ -59,6 +63,8 @@ public abstract class ProviderTvFragment extends BrowseFragment {
      */
     protected abstract Map<String, RowsFragment> getFragmentMap();
 
+    protected abstract Class<? extends ProviderSearchActivity> getSearchActivity();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +76,16 @@ public abstract class ProviderTvFragment extends BrowseFragment {
             mBackgroundManager = mBackgroundManager.getInstance(getActivity());
             mBackgroundManager.attach(getActivity().getWindow());
             getMainFragmentRegistry().registerFragment(PageRow.class, new TvFragmentFactory());
+
+            if (getSearchActivity() != null) {
+                setOnSearchClickedListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), getSearchActivity());
+                        startActivity(intent);
+                    }
+                });
+            }
         }
     }
 
