@@ -18,6 +18,7 @@ package com.zaclimon.xipl.ui.main;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseFragment;
@@ -28,8 +29,10 @@ import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
 import android.support.v17.leanback.widget.Row;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.View;
 
+import com.zaclimon.xipl.R;
 import com.zaclimon.xipl.ui.search.ProviderSearchActivity;
 
 import java.util.Map;
@@ -78,6 +81,9 @@ public abstract class ProviderTvFragment extends BrowseFragment {
             getMainFragmentRegistry().registerFragment(PageRow.class, new TvFragmentFactory());
 
             if (getSearchActivity() != null) {
+                TypedValue value = new TypedValue();
+                TypedArray array = getActivity().obtainStyledAttributes(value.data, new int[] {android.R.attr.colorAccent});
+                setSearchAffordanceColor(array.getColor(0, 0));
                 setOnSearchClickedListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -85,6 +91,7 @@ public abstract class ProviderTvFragment extends BrowseFragment {
                         startActivity(intent);
                     }
                 });
+                array.recycle();
             }
         }
     }
