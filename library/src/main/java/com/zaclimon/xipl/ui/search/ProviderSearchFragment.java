@@ -29,6 +29,8 @@ import com.zaclimon.xipl.R;
 import com.zaclimon.xipl.persistence.ContentPersistence;
 import com.zaclimon.xipl.ui.components.cardview.CardViewImageProcessor;
 import com.zaclimon.xipl.ui.components.cardview.CardViewPresenter;
+import com.zaclimon.xipl.ui.components.listener.AvContentTvItemClickListener;
+import com.zaclimon.xipl.ui.vod.VodPlaybackActivity;
 
 /**
  * A base {@link SearchFragment} which can be used for searching content.
@@ -57,11 +59,19 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
      */
     protected abstract CardViewImageProcessor getCardViewImageProcessor();
 
+    /**
+     * Gets the playback Activity required to play a given VOD content
+     *
+     * @return the playback activity
+     */
+    protected abstract Class<? extends VodPlaybackActivity> getPlaybackActivity();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         setSearchResultProvider(this);
+        setOnItemViewClickedListener(new AvContentTvItemClickListener(getPlaybackActivity()));
         setSpeechRecognitionCallback(new SpeechRecognitionCallback() {
             @Override
             public void recognizeSpeech() {

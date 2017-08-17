@@ -40,6 +40,7 @@ import com.zaclimon.xipl.model.AvContent;
 import com.zaclimon.xipl.persistence.ContentPersistence;
 import com.zaclimon.xipl.ui.components.cardview.CardViewImageProcessor;
 import com.zaclimon.xipl.ui.components.cardview.CardViewPresenter;
+import com.zaclimon.xipl.ui.components.listener.AvContentTvItemClickListener;
 import com.zaclimon.xipl.util.AvContentUtil;
 import com.zaclimon.xipl.util.RichFeedUtil;
 
@@ -122,7 +123,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         mProgressBarManager = ((BrowseFragment) getParentFragment()).getProgressBarManager();
         mScaleFrameLayout = getActivity().findViewById(R.id.scale_frame);
         mProgressBarManager.setRootView((ViewGroup) getActivity().findViewById(R.id.browse_container_dock));
-        setOnItemViewClickedListener(new AvContentTvItemClickListener());
+        setOnItemViewClickedListener(new AvContentTvItemClickListener(getPlaybackActivity()));
         setAdapter(mRowsAdapter);
 
         mAsyncProcessAvContent = new AsyncProcessAvContent();
@@ -259,32 +260,6 @@ public abstract class VodTvSectionFragment extends RowsFragment {
                 Log.e(LOG_TAG, "Couldn't parse contents");
                 Log.e(LOG_TAG, "Api Link: " + getVodContentApiLink());
                 showErrorView();
-            }
-        }
-    }
-
-    /**
-     * Class acting as a onItemViewClickedListener to play an {@link AvContent}
-     *
-     * @author zaclimon
-     * Creation date: 02/07/17
-     */
-    private class AvContentTvItemClickListener implements OnItemViewClickedListener {
-
-        @Override
-        public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-
-            if (item instanceof AvContent) {
-                // The item comes from an AvContent element.
-                AvContent avContent = (AvContent) item;
-                Intent intent = new Intent(getActivity(), getPlaybackActivity());
-                Bundle bundle = new Bundle();
-                bundle.putString(AV_CONTENT_TITLE_BUNDLE, avContent.getTitle());
-                bundle.putString(AV_CONTENT_LOGO_BUNDLE, avContent.getLogo());
-                bundle.putString(AV_CONTENT_LINK_BUNDLE, avContent.getContentLink());
-                bundle.putString(AV_CONTENT_GROUP_BUNDLE, avContent.getGroup());
-                intent.putExtras(bundle);
-                startActivity(intent);
             }
         }
     }
