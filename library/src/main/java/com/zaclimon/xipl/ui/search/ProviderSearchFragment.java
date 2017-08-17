@@ -16,6 +16,7 @@
 
 package com.zaclimon.xipl.ui.search;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.SearchFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -26,11 +27,17 @@ import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.SpeechRecognitionCallback;
 
 import com.zaclimon.xipl.R;
+import com.zaclimon.xipl.model.AvContent;
 import com.zaclimon.xipl.persistence.ContentPersistence;
 import com.zaclimon.xipl.ui.components.cardview.CardViewImageProcessor;
 import com.zaclimon.xipl.ui.components.cardview.CardViewPresenter;
 import com.zaclimon.xipl.ui.components.listener.AvContentTvItemClickListener;
 import com.zaclimon.xipl.ui.vod.VodPlaybackActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * A base {@link SearchFragment} which can be used for searching content.
@@ -41,9 +48,20 @@ import com.zaclimon.xipl.ui.vod.VodPlaybackActivity;
 
 public abstract class ProviderSearchFragment extends SearchFragment implements SearchFragment.SearchResultProvider {
 
+    /**
+     * Value used to display the search results as a single row.
+     */
+    public static final int SEARCH_LAYOUT_SINGLE_ROW = 0;
+
+    /**
+     * Value used to display the search results based on their group.
+     */
+    public static final int SEARCH_LAYOUT_GROUP_ROW = 1;
+
     private static final int REQUEST_SPEECH = 0;
 
     private ArrayObjectAdapter mRowsAdapter;
+    private int mSearchLayout = SEARCH_LAYOUT_GROUP_ROW;
 
     /**
      * Gets the implementation used to persist content
@@ -65,6 +83,19 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
      * @return the playback activity
      */
     protected abstract Class<? extends VodPlaybackActivity> getPlaybackActivity();
+
+    /**
+     * Determines the layout of the search results.
+     *
+     * {@link ProviderSearchFragment#SEARCH_LAYOUT_SINGLE_ROW} determines a single row layout
+     * {@link ProviderSearchFragment#SEARCH_LAYOUT_GROUP_ROW} determines a multiple row layout based on the group of the content.
+     */
+    protected void setSearchLayout(int layout) {
+        if (!(layout == SEARCH_LAYOUT_SINGLE_ROW || layout == SEARCH_LAYOUT_GROUP_ROW)) {
+            throw new IllegalArgumentException("Invalid layout: " + layout);
+        }
+        mSearchLayout = layout;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,13 +123,81 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
 
     @Override
     public boolean onQueryTextSubmit(String newQuery) {
-        HeaderItem headerItem = new HeaderItem(getString(R.string.search_results));
-        ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getCardViewImageProcessor()));
-        mRowsAdapter.clear();
-
-        arrayObjectAdapter.addAll(0, getContentPersistence().searchTitle(newQuery, true));
-        mRowsAdapter.add(new ListRow(headerItem, arrayObjectAdapter));
+        new AsyncUpdateRows(newQuery).execute();
         return (true);
+    }
+
+    /**
+     * AsyncTask responsible for updating rows in a way that it does not disrupt the user experience.
+     *
+     * @author zaclimon
+     * Creation date: 17/08/17
+     */
+    private class AsyncUpdateRows extends AsyncTask<Void, Void, List<ListRow>> {
+
+        private String mQuery;
+
+        public AsyncUpdateRows(String query) {
+            mQuery = query;
+        }
+
+        @Override
+        public void onPreExecute() {
+            mRowsAdapter.clear();
+        }
+
+        @Override
+        public List<ListRow> doInBackground(Void... params) {
+
+            ArrayObjectAdapter arrayObjectAdapter;
+            HeaderItem headerItem;
+            List<ListRow> tempList = new ArrayList<>();
+
+            if (mSearchLayout == SEARCH_LAYOUT_GROUP_ROW) {
+
+                 /*
+                  Set everything in a map first for easy search/insertion for the values.
+                  Use a TreeMap since we care about the natural order of the keys.
+
+                  Also get the content based on their inserted order since some of them might be
+                  sorted by date.
+                  */
+
+                Map<String, List<AvContent>> contentMap = new TreeMap<>();
+                List<AvContent> contents = getContentPersistence().searchTitle(mQuery, false);
+
+                for (AvContent content : contents) {
+                    List<AvContent> tempGroupList;
+
+                    if (!contentMap.containsKey(content.getGroup())){
+                        tempGroupList = new ArrayList<>();
+                    } else {
+                        tempGroupList = contentMap.get(content.getGroup());
+                    }
+                    tempGroupList.add(content);
+                    contentMap.put(content.getGroup(), tempGroupList);
+                }
+
+                for (Map.Entry<String, List<AvContent>> entry : contentMap.entrySet()) {
+                    headerItem = new HeaderItem(entry.getKey());
+                    arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getCardViewImageProcessor()));
+                    arrayObjectAdapter.addAll(0, entry.getValue());
+                    tempList.add(new ListRow(headerItem, arrayObjectAdapter));
+                }
+            } else {
+                headerItem = new HeaderItem(getString(R.string.search_results));
+                arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getCardViewImageProcessor()));
+                arrayObjectAdapter.addAll(0, getContentPersistence().searchTitle(mQuery, true));
+                tempList.add(new ListRow(headerItem, arrayObjectAdapter));
+            }
+            return (tempList);
+        }
+
+        @Override
+        public void onPostExecute(List<ListRow> results) {
+            mRowsAdapter.addAll(0, results);
+        }
+
     }
 
 }
