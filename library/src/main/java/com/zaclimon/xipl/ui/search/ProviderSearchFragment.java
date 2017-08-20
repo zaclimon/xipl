@@ -25,6 +25,9 @@ import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.SpeechRecognitionCallback;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.zaclimon.xipl.R;
 import com.zaclimon.xipl.model.AvContent;
@@ -61,6 +64,8 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
     private static final int REQUEST_SPEECH = 0;
 
     private ArrayObjectAdapter mRowsAdapter;
+    private FrameLayout mFrameLayout;
+    private View mEmptyResultsView;
     private int mSearchLayout = SEARCH_LAYOUT_GROUP_ROW;
 
     /**
@@ -101,6 +106,9 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+        mEmptyResultsView = View.inflate(getActivity(), R.layout.view_content_unavailable, null);
+        TextView textView = mEmptyResultsView.findViewById(R.id.view_content_unavailable_textview);
+        textView.setText(R.string.no_results_found);
         setSearchResultProvider(this);
         setOnItemViewClickedListener(new AvContentTvItemClickListener(getPlaybackActivity()));
         setSpeechRecognitionCallback(new SpeechRecognitionCallback() {
@@ -109,6 +117,14 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
                 startActivityForResult(getRecognizerIntent(), REQUEST_SPEECH);
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (isAdded() && getView() != null) {
+            mFrameLayout = getView().findViewById(R.id.lb_search_frame);
+        }
     }
 
     @Override
@@ -125,6 +141,24 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
     public boolean onQueryTextSubmit(String newQuery) {
         new AsyncUpdateRows(newQuery).execute();
         return (true);
+    }
+
+    /**
+     * Shows a view in which search results could not have been found.
+     */
+    protected void showNoResultsView() {
+        if (isAdded() && mFrameLayout != null) {
+            mFrameLayout.addView(mEmptyResultsView);
+        }
+    }
+
+    /**
+     * Removes a view in which search results could not have been found.
+     */
+    protected void removeNoResultsView() {
+        if (isAdded() && mFrameLayout != null) {
+            mFrameLayout.removeView(mEmptyResultsView);
+        }
     }
 
     /**
@@ -195,7 +229,13 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
 
         @Override
         public void onPostExecute(List<ListRow> results) {
-            mRowsAdapter.addAll(0, results);
+            if (!results.isEmpty()) {
+                removeNoResultsView();
+                mRowsAdapter.addAll(0, results);
+            } else if (mEmptyResultsView.getParent() == null) {
+                // Show only the no results view if it has a parent.
+                showNoResultsView();
+            }
         }
 
     }
