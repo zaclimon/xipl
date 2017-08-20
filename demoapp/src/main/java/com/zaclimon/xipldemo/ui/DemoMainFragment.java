@@ -19,6 +19,7 @@ package com.zaclimon.xipldemo.ui;
 import android.support.v17.leanback.app.RowsFragment;
 
 import com.zaclimon.xipl.ui.main.ProviderTvFragment;
+import com.zaclimon.xipl.ui.search.ProviderSearchActivity;
 import com.zaclimon.xipldemo.R;
 import com.zaclimon.xipldemo.ui.settings.DemoProviderSettingsTvFragment;
 
@@ -46,5 +47,9 @@ public class DemoMainFragment extends ProviderTvFragment {
         return (tempMap);
     }
 
+    @Override
+    public Class<? extends ProviderSearchActivity> getSearchActivity() {
+        return (null);
+    }
 
 }
