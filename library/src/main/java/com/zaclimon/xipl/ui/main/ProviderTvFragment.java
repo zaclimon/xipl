@@ -48,7 +48,6 @@ import java.util.Map;
 public abstract class ProviderTvFragment extends BrowseFragment {
 
     private ArrayObjectAdapter mRowsAdapter;
-    private BackgroundManager mBackgroundManager;
     private SparseArray<RowsFragment> mFragmentSparseArray;
 
     /**
@@ -76,8 +75,6 @@ public abstract class ProviderTvFragment extends BrowseFragment {
             mFragmentSparseArray = new SparseArray<>();
             setupUI();
             showRows();
-            mBackgroundManager = mBackgroundManager.getInstance(getActivity());
-            mBackgroundManager.attach(getActivity().getWindow());
             getMainFragmentRegistry().registerFragment(PageRow.class, new TvFragmentFactory());
 
             if (getSearchActivity() != null) {
