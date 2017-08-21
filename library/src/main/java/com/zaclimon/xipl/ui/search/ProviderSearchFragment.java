@@ -16,6 +16,8 @@
 
 package com.zaclimon.xipl.ui.search;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.SearchFragment;
@@ -158,6 +160,13 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
     protected void removeNoResultsView() {
         if (isAdded() && mFrameLayout != null) {
             mFrameLayout.removeView(mEmptyResultsView);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SPEECH && resultCode == Activity.RESULT_OK) {
+            setSearchQuery(data, true);
         }
     }
 
