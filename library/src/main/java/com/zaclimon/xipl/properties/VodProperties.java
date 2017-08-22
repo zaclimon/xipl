@@ -16,4 +16,11 @@ public interface VodProperties {
      */
     boolean isVideoFitToScreen();
 
+    /**
+     * Determines if an external player should be used for playback instead of the internal one.
+     *
+     * @return true if an external player should be used.
+     */
+    boolean isExternalPlayerUsed();
+
 }

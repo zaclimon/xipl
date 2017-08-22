@@ -17,6 +17,7 @@
 package com.zaclimon.xipl.ui.vod;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
@@ -63,6 +64,18 @@ public abstract class VodPlaybackFragment extends VideoFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (getVodProperties().isExternalPlayerUsed()) {
+            configureExternalPlayer();
+            getActivity().finish();
+        } else {
+            configureInternalPlayer();
+        }
+    }
+
+    /**
+     * Sets up the usage of the internal player used by the library.
+     */
+    protected void configureInternalPlayer() {
         ExoPlayerAdapter exoPlayerAdapter;
         Bundle arguments = getArguments();
         String url = arguments.getString(VodTvSectionFragment.AV_CONTENT_LINK_BUNDLE);
@@ -111,6 +124,16 @@ public abstract class VodPlaybackFragment extends VideoFragment {
         setBackgroundType(BG_LIGHT);
     }
 
+    /**
+     * Sets up the usage of an external player installed on the device.
+     */
+    protected void configureExternalPlayer() {
+        Uri contentUri = Uri.parse(getArguments().getString(VodTvSectionFragment.AV_CONTENT_LINK_BUNDLE));
+        Intent intent = new Intent(Intent.ACTION_VIEW, contentUri);
+        intent.setDataAndType(contentUri, "video/*");
+        startActivity(intent);
+    }
+
     @Override
     public void onPause() {
         if (mPlayerGlue != null) {
@@ -119,7 +142,6 @@ public abstract class VodPlaybackFragment extends VideoFragment {
             }
         }
         super.onPause();
-
     }
 
     @Override
