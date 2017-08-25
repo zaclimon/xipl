@@ -15,7 +15,7 @@
  */
 
 
-package com.zaclimon.xipl.player;
+package com.zaclimon.xipl.ui.vod;
 
 
 import android.content.Context;

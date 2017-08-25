@@ -31,8 +31,6 @@ import android.util.DisplayMetrics;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.zaclimon.xipl.R;
-import com.zaclimon.xipl.player.ExoPlayerAdapter;
-import com.zaclimon.xipl.player.SeekableTsExoPlayerAdapter;
 import com.zaclimon.xipl.properties.VodProperties;
 
 /**
@@ -44,7 +42,7 @@ import com.zaclimon.xipl.properties.VodProperties;
 
 public abstract class VodPlaybackFragment extends VideoFragment {
 
-    private PlaybackTransportControlGlue<ExoPlayerAdapter> mPlayerGlue;
+    PlaybackTransportControlGlue<ExoPlayerAdapter> mPlayerGlue;
 
     /**
      * Retrieves the properties for a given VOD content
@@ -76,18 +74,10 @@ public abstract class VodPlaybackFragment extends VideoFragment {
      * Sets up the usage of the internal player used by the library.
      */
     protected void configureInternalPlayer() {
-        ExoPlayerAdapter exoPlayerAdapter;
         Bundle arguments = getArguments();
         String url = arguments.getString(VodTvSectionFragment.AV_CONTENT_LINK_BUNDLE);
 
-        if (url != null && url.contains("duration=")) {
-            String durationString = url.substring(url.lastIndexOf("=")).replace("=", "");
-            exoPlayerAdapter = new SeekableTsExoPlayerAdapter(getActivity(), Integer.parseInt(durationString));
-        } else {
-            exoPlayerAdapter = new SeekableTsExoPlayerAdapter(getActivity());
-        }
-
-
+        ExoPlayerAdapter exoPlayerAdapter = new ExoPlayerAdapter(getActivity());
         exoPlayerAdapter.setAudioStreamType(AudioManager.USE_DEFAULT_STREAM_TYPE);
         mPlayerGlue = new ProviderVideoMediaPlayerGlue<>(getActivity(), exoPlayerAdapter);
         mPlayerGlue.setHost(new VideoFragmentGlueHost(this));
