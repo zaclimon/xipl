@@ -31,6 +31,7 @@ import android.util.DisplayMetrics;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.zaclimon.xipl.R;
+import com.zaclimon.xipl.player.ExoPlayerAdapter;
 import com.zaclimon.xipl.properties.VodProperties;
 
 /**
