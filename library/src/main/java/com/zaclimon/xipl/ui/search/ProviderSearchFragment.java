@@ -17,6 +17,7 @@
 package com.zaclimon.xipl.ui.search;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.support.v17.leanback.widget.SpeechRecognitionCallback;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zaclimon.xipl.R;
 import com.zaclimon.xipl.model.AvContent;
@@ -116,7 +118,11 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
         setSpeechRecognitionCallback(new SpeechRecognitionCallback() {
             @Override
             public void recognizeSpeech() {
-                startActivityForResult(getRecognizerIntent(), REQUEST_SPEECH);
+                try {
+                    startActivityForResult(getRecognizerIntent(), REQUEST_SPEECH);
+                } catch (ActivityNotFoundException anf) {
+                    Toast.makeText(getActivity(), R.string.cannot_start_voice_search, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

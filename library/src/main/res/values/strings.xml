@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">IPTV Provider library</string>
+    <string name="cannot_start_voice_search">Cannot start voice search. Device not compatible!</string>
     <string name="channel_stream_failure">Stream failure. Please try again later or contact your provider</string>
     <string name="channel_sync_failure">Could not sync the channels. Possible invalid URL.</string>
     <string name="content_not_available">Content not available.</string>
