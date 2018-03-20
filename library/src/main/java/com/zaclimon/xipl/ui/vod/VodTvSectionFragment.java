@@ -16,7 +16,6 @@
 
 package com.zaclimon.xipl.ui.vod;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
@@ -26,10 +25,6 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
-import android.support.v17.leanback.widget.OnItemViewClickedListener;
-import android.support.v17.leanback.widget.Presenter;
-import android.support.v17.leanback.widget.Row;
-import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.ScaleFrameLayout;
 import android.util.Log;
 import android.view.View;
@@ -138,7 +133,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         final List<String> avGroups = new ArrayList<>();
         final List<ArrayObjectAdapter> avAdapters = new ArrayList<>();
-        List<AvContent> contents = getContentPersistence().searchCategory(VodTvSectionFragment.this.getClass().getSimpleName(), true);
+        List<AvContent> contents = getContentPersistence().getFromCategory(VodTvSectionFragment.this.getClass().getSimpleName(), true);
 
         mProgressBarManager.hide();
 

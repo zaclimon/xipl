@@ -54,14 +54,14 @@ public interface ContentPersistence {
     /**
      * Deletes all the items that have been persisted.
      */
-    void deleteAllItems();
+    void deleteAll();
 
     /**
      * Lists all the items that have been persisted.
      *
      * @return the list of all the {@link AvContent} that have been persisted
      */
-    List<AvContent> listAllItems();
+    List<AvContent> listAll();
 
     /**
      * Gives a list of {@link AvContent} containing a given title. The list can be sorted or not.
@@ -70,7 +70,7 @@ public interface ContentPersistence {
      * @param isAlphabeticallySorted whether the retrieved contents should be sorted by alphabetical order
      * @return the list of contents.
      */
-    List<AvContent> searchTitle(String title, boolean isAlphabeticallySorted);
+    List<AvContent> getFromTitle(String title, boolean isAlphabeticallySorted);
 
     /**
      * Gives a list of the {@link AvContent} belonging to a given category. The list can be sorted
@@ -80,7 +80,7 @@ public interface ContentPersistence {
      * @param isAlphabeticallySorted whether the retrieved contents should be sorted by alphabetical order
      * @return the list of contents
      */
-    List<AvContent> searchCategory(String category, boolean isAlphabeticallySorted);
+    List<AvContent> getFromCategory(String category, boolean isAlphabeticallySorted);
 
     /**
      * Gets the total size of the persistence medium

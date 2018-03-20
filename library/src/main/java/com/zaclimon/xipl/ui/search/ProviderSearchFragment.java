@@ -213,7 +213,7 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
                   */
 
                 Map<String, List<AvContent>> contentMap = new TreeMap<>();
-                List<AvContent> contents = getContentPersistence().searchTitle(mQuery, false);
+                List<AvContent> contents = getContentPersistence().getFromTitle(mQuery, false);
 
                 for (AvContent content : contents) {
                     List<AvContent> tempGroupList;
@@ -236,7 +236,7 @@ public abstract class ProviderSearchFragment extends SearchFragment implements S
             } else {
                 headerItem = new HeaderItem(getString(R.string.search_results));
                 arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getCardViewImageProcessor()));
-                arrayObjectAdapter.addAll(0, getContentPersistence().searchTitle(mQuery, true));
+                arrayObjectAdapter.addAll(0, getContentPersistence().getFromTitle(mQuery, true));
                 tempList.add(new ListRow(headerItem, arrayObjectAdapter));
             }
             return (tempList);
