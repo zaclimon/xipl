@@ -18,10 +18,12 @@ package com.zaclimon.xipl.ui.vod;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.app.RowsFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.support.v17.leanback.widget.DiffCallback;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
@@ -43,6 +45,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Base class in which VOD-like (Video on demand) fragments can base off in order to have a complete
@@ -120,47 +125,90 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         mProgressBarManager.setRootView((ViewGroup) getActivity().findViewById(R.id.browse_container_dock));
         setOnItemViewClickedListener(new AvContentTvItemClickListener(getPlaybackActivity()));
         setAdapter(mRowsAdapter);
-
+        showRowsAdapter();
         mAsyncProcessAvContent = new AsyncProcessAvContent();
         mAsyncProcessAvContent.execute();
 
     }
 
     /**
-     * Updates the main RowAdapter of the Fragment.
+     * Shows the current content to the user's screen.
+     */
+    private void showRowsAdapter() {
+        Map<String, List<AvContent>> tempMap = getContentsByGroup();
+
+        if (!tempMap.isEmpty()) {
+            mProgressBarManager.hide();
+            for (String group : tempMap.keySet()) {
+                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getImageProcessor()));
+                HeaderItem header = new HeaderItem(group);
+                arrayObjectAdapter.addAll(0, tempMap.get(group));
+                mRowsAdapter.add(new ListRow(header, arrayObjectAdapter));
+            }
+        }
+    }
+    /**
+     * Updates the content shown to the user.
      */
     private void updateRowsAdapter() {
+        Map<String, List<AvContent>> tempMap = getContentsByGroup();
 
-        final List<String> avGroups = new ArrayList<>();
-        final List<ArrayObjectAdapter> avAdapters = new ArrayList<>();
-        List<AvContent> contents = getContentPersistence().getFromCategory(VodTvSectionFragment.this.getClass().getSimpleName(), true);
+        if (!tempMap.isEmpty()) {
+            Set<String> groups = tempMap.keySet();
+            int i = 0;
+            mProgressBarManager.hide();
 
-        mProgressBarManager.hide();
-
-        if (!contents.isEmpty()) {
-            String currentGroup = contents.get(0).getGroup();
-            ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getImageProcessor()));
-            avGroups.add(currentGroup);
-
-            for (AvContent content : contents) {
-                if (!currentGroup.equals(content.getGroup())) {
-                    avAdapters.add(arrayObjectAdapter);
-                    avGroups.add(content.getGroup());
-                    arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getImageProcessor()));
-                    currentGroup = content.getGroup();
-                }
-                arrayObjectAdapter.add(content);
-            }
-
-            if (mRowsAdapter.size() == 0) {
-                for (int i = 0; i < avAdapters.size(); i++) {
-                    HeaderItem catchupItem = new HeaderItem(avGroups.get(i));
-                    mRowsAdapter.add(new ListRow(catchupItem, avAdapters.get(i)));
-                }
+            for (String group : groups) {
+                ListRow tempListRow = (ListRow) mRowsAdapter.get(i);
+                ArrayObjectAdapter objectAdapter = (ArrayObjectAdapter) tempListRow.getAdapter();
+                objectAdapter.setItems(tempMap.get(group), getCallback());
+                i++;
             }
         } else if (mScaleFrameLayout != null) {
             showErrorView();
         }
+    }
+
+    /**
+     * Obtains a map containing the list of contents. Each list of contents are categorized by
+     * content groups as defined in {@link AvContent}
+     *
+     * @return the map of contents based on their respective group.
+     */
+    private Map<String, List<AvContent>> getContentsByGroup() {
+        // Use a TreeMap due to the alphabetical listing of contents.
+        Map<String, List<AvContent>> tempMap = new TreeMap<>();
+        List<AvContent> persistenceContents = getContentPersistence().getFromCategory(VodTvSectionFragment.this.getClass().getSimpleName(), true);
+
+        if (!persistenceContents.isEmpty()) {
+            List<AvContent> groupContents = new ArrayList<>();
+            String currentGroup = persistenceContents.get(0).getGroup();
+
+            for (AvContent content : persistenceContents) {
+                if (!currentGroup.equals(content.getGroup())) {
+                    tempMap.put(currentGroup, groupContents);
+                    currentGroup = content.getGroup();
+                    groupContents = new ArrayList<>();
+                }
+                groupContents.add(content);
+            }
+        }
+        return (tempMap);
+    }
+
+    private DiffCallback<AvContent> getCallback() {
+        DiffCallback<AvContent> callback = new DiffCallback<AvContent>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull AvContent oldItem, @NonNull AvContent newItem) {
+                return (oldItem.getId() == newItem.getId());
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull AvContent oldItem, @NonNull AvContent newItem) {
+                return (oldItem.getContentLink().equals(newItem.getContentLink()));
+            }
+        };
+        return (callback);
     }
 
     @Override
@@ -175,17 +223,6 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         if (mRowsAdapter.size() == 0 && mScaleFrameLayout != null) {
             mScaleFrameLayout.removeAllViews();
-        }
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (mModifiedContents != null) {
-            getContentPersistence().deleteCategory(VodTvSectionFragment.this.getClass().getSimpleName());
-            getContentPersistence().insert(mModifiedContents);
         }
     }
 
@@ -207,9 +244,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         @Override
         public void onPreExecute() {
-
             long contentsSize = getContentPersistence().size(VodTvSectionFragment.this.getClass().getSimpleName());
-
             if (contentsSize > 0) {
                 updateRowsAdapter();
             } else {
@@ -225,13 +260,13 @@ public abstract class VodTvSectionFragment extends RowsFragment {
                 long persistedSize = getContentPersistence().size(VodTvSectionFragment.this.getClass().getSimpleName());
 
                 if (!isCancelled()) {
-
                     final List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
 
                     if (avContents.size() != persistedSize && persistedSize == 0) {
                         getContentPersistence().insert(avContents);
                     } else if (avContents.size() != persistedSize) {
-                        mModifiedContents = avContents;
+                        getContentPersistence().deleteCategory(VodTvSectionFragment.this.getClass().getSimpleName());
+                        getContentPersistence().insert(avContents);
                     }
                 }
 
@@ -239,7 +274,6 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             } catch (IOException io) {
                 return (false);
             }
-
         }
 
         @Override
@@ -250,8 +284,11 @@ public abstract class VodTvSectionFragment extends RowsFragment {
               isn't available.
               */
             if (result && mRowsAdapter.size() == 0) {
+                showRowsAdapter();
+            } else if (result) {
+                // Otherwise, update the adapter so it can be seamless to the user.
                 updateRowsAdapter();
-            } else if (!result) {
+            } else {
                 Log.e(LOG_TAG, "Couldn't parse contents");
                 Log.e(LOG_TAG, "Api Link: " + getVodContentApiLink());
                 showErrorView();
