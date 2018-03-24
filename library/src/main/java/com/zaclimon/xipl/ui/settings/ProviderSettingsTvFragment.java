@@ -19,7 +19,7 @@ package com.zaclimon.xipl.ui.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v17.leanback.app.RowsFragment;
+import android.support.v17.leanback.app.RowsSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
@@ -35,7 +35,7 @@ import android.support.v17.leanback.widget.RowPresenter;
  * Creation date: 01/07/17
  */
 
-public abstract class ProviderSettingsTvFragment extends RowsFragment {
+public abstract class ProviderSettingsTvFragment extends RowsSupportFragment {
 
     private ArrayObjectAdapter mRowsAdapter;
 

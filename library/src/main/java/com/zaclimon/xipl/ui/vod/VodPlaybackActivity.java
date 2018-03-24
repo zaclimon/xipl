@@ -17,9 +17,10 @@
 package com.zaclimon.xipl.ui.vod;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
 import com.zaclimon.xipl.R;
 import com.zaclimon.xipl.util.ActivityUtil;
@@ -31,7 +32,7 @@ import com.zaclimon.xipl.util.ActivityUtil;
  * Creation date: 11/08/17
  */
 
-public abstract class VodPlaybackActivity extends Activity {
+public abstract class VodPlaybackActivity extends FragmentActivity {
 
     public static final int NO_THEME = -1;
 
@@ -62,7 +63,7 @@ public abstract class VodPlaybackActivity extends Activity {
 
         setContentView(R.layout.activity_vod_playback);
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment playbackFragment = getVodPlaybackFragment();
         Bundle arguments = getIntent().getExtras();
         playbackFragment.setArguments(arguments);

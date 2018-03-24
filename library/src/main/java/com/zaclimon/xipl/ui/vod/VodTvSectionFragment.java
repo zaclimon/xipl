@@ -19,9 +19,9 @@ package com.zaclimon.xipl.ui.vod;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v17.leanback.app.BrowseFragment;
+import android.support.v17.leanback.app.BrowseSupportFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
-import android.support.v17.leanback.app.RowsFragment;
+import android.support.v17.leanback.app.RowsSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.DiffCallback;
 import android.support.v17.leanback.widget.HeaderItem;
@@ -57,7 +57,7 @@ import java.util.TreeMap;
  * Creation date: 05/07/17
  */
 
-public abstract class VodTvSectionFragment extends RowsFragment {
+public abstract class VodTvSectionFragment extends RowsSupportFragment {
 
     /**
      * Variable for accessing an {@link AvContent} title
@@ -120,7 +120,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         super.onCreate(savedInstanceState);
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-        mProgressBarManager = ((BrowseFragment) getParentFragment()).getProgressBarManager();
+        mProgressBarManager = ((BrowseSupportFragment) getParentFragment()).getProgressBarManager();
         mScaleFrameLayout = getActivity().findViewById(R.id.scale_frame);
         mProgressBarManager.setRootView((ViewGroup) getActivity().findViewById(R.id.browse_container_dock));
         setOnItemViewClickedListener(new AvContentTvItemClickListener(getPlaybackActivity()));

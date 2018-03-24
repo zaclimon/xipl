@@ -21,7 +21,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v17.leanback.app.SearchFragment;
+import android.support.v17.leanback.app.SearchSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
@@ -47,13 +47,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * A base {@link SearchFragment} which can be used for searching content.
+ * A base {@link SearchSupportFragment} which can be used for searching content.
  *
  * @author zaclimon
  * Creation date: 16/08/17
  */
 
-public abstract class ProviderSearchFragment extends SearchFragment implements SearchFragment.SearchResultProvider {
+public abstract class ProviderSearchFragment extends SearchSupportFragment implements SearchSupportFragment.SearchResultProvider {
 
     /**
      * Value used to display the search results as a single row.

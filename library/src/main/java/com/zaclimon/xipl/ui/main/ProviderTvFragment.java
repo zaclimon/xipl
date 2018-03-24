@@ -16,23 +16,22 @@
 
 package com.zaclimon.xipl.ui.main;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v17.leanback.app.BackgroundManager;
-import android.support.v17.leanback.app.BrowseFragment;
+import android.support.v17.leanback.app.BrowseSupportFragment;
 import android.support.v17.leanback.app.RowsFragment;
+import android.support.v17.leanback.app.RowsSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
 import android.support.v17.leanback.widget.Row;
+import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.zaclimon.xipl.R;
 import com.zaclimon.xipl.ui.search.ProviderSearchActivity;
 
 import java.util.Map;
@@ -45,10 +44,10 @@ import java.util.Map;
  * Creation date: 20/06/17
  */
 
-public abstract class ProviderTvFragment extends BrowseFragment {
+public abstract class ProviderTvFragment extends BrowseSupportFragment {
 
     private ArrayObjectAdapter mRowsAdapter;
-    private SparseArray<RowsFragment> mFragmentSparseArray;
+    private SparseArray<RowsSupportFragment> mFragmentSparseArray;
 
     /**
      * Gets the application name
@@ -63,7 +62,7 @@ public abstract class ProviderTvFragment extends BrowseFragment {
      *
      * @return the list of RowsFragment mapped by title
      */
-    protected abstract Map<String, RowsFragment> getFragmentMap();
+    protected abstract Map<String, RowsSupportFragment> getFragmentMap();
 
     protected abstract Class<? extends ProviderSearchActivity> getSearchActivity();
 
@@ -106,12 +105,12 @@ public abstract class ProviderTvFragment extends BrowseFragment {
      * Shows the different rows of the Fragment.
      */
     private void showRows() {
-        Map<String, RowsFragment> tempMap = getFragmentMap();
+        Map<String, RowsSupportFragment> tempMap = getFragmentMap();
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
         int i = 0;
 
-        for (Map.Entry<String, RowsFragment> entry : tempMap.entrySet()) {
+        for (Map.Entry<String, RowsSupportFragment> entry : tempMap.entrySet()) {
             HeaderItem header = new HeaderItem(i, entry.getKey());
             PageRow row = new PageRow(header);
             mRowsAdapter.add(row);

@@ -16,17 +16,17 @@
 
 package com.zaclimon.xipl.ui.vod;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v17.leanback.app.ErrorFragment;
-import android.support.v17.leanback.app.VideoFragment;
-import android.support.v17.leanback.app.VideoFragmentGlueHost;
+import android.support.v17.leanback.app.ErrorSupportFragment;
+import android.support.v17.leanback.app.VideoSupportFragment;
+import android.support.v17.leanback.app.VideoSupportFragmentGlueHost;
 import android.support.v17.leanback.media.PlaybackGlue;
 import android.support.v17.leanback.media.PlaybackTransportControlGlue;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -41,7 +41,7 @@ import com.zaclimon.xipl.properties.VodProperties;
  * Creation date: 11/08/17
  */
 
-public abstract class VodPlaybackFragment extends VideoFragment {
+public abstract class VodPlaybackFragment extends VideoSupportFragment {
 
     PlaybackTransportControlGlue<ExoPlayerAdapter> mPlayerGlue;
 
@@ -81,7 +81,7 @@ public abstract class VodPlaybackFragment extends VideoFragment {
         ExoPlayerAdapter exoPlayerAdapter = new ExoPlayerAdapter(getActivity());
         exoPlayerAdapter.setAudioStreamType(AudioManager.USE_DEFAULT_STREAM_TYPE);
         mPlayerGlue = new ProviderVideoMediaPlayerGlue<>(getActivity(), exoPlayerAdapter);
-        mPlayerGlue.setHost(new VideoFragmentGlueHost(this));
+        mPlayerGlue.setHost(new VideoSupportFragmentGlueHost(this));
         mPlayerGlue.setTitle(arguments.getString(VodTvSectionFragment.AV_CONTENT_TITLE_BUNDLE));
         mPlayerGlue.setSubtitle(arguments.getString(VodTvSectionFragment.AV_CONTENT_GROUP_BUNDLE));
         mPlayerGlue.getPlayerAdapter().setDataSource(Uri.parse(url));
@@ -141,7 +141,7 @@ public abstract class VodPlaybackFragment extends VideoFragment {
         // Notify the user if a video can't be played.
         if (errorCode == ExoPlaybackException.TYPE_SOURCE) {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            ErrorFragment errorFragment = new ErrorFragment();
+            ErrorSupportFragment errorFragment = new ErrorSupportFragment();
             errorFragment.setDefaultBackground(true);
             errorFragment.setMessage(getString(R.string.video_not_playable, getProviderName()));
             errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));

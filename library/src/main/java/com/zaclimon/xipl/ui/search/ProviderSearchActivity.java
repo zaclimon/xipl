@@ -17,10 +17,11 @@
 package com.zaclimon.xipl.ui.search;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v17.leanback.app.SearchFragment;
+import android.support.v17.leanback.app.SearchSupportFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
 import com.zaclimon.xipl.R;
 
@@ -31,7 +32,7 @@ import com.zaclimon.xipl.R;
  * Creation date: 16/08/17
  */
 
-public abstract class ProviderSearchActivity extends Activity {
+public abstract class ProviderSearchActivity extends FragmentActivity {
 
     /**
      * Value to use if there is no custom theme set.
@@ -39,11 +40,11 @@ public abstract class ProviderSearchActivity extends Activity {
     public static final int NO_THEME = -1;
 
     /**
-     * Gets a custom {@link SearchFragment} which will be used to get content.
+     * Gets a custom {@link SearchSupportFragment} which will be used to get content.
      *
      * @return the corresponding fragment for searching.
      */
-    protected abstract SearchFragment getSearchFragment();
+    protected abstract SearchSupportFragment getSearchFragment();
 
     /**
      * Defines the theme id to set for this {@link Activity}. Note that the no default theme might
@@ -64,7 +65,7 @@ public abstract class ProviderSearchActivity extends Activity {
         }
 
         setContentView(R.layout.activity_search);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.activity_search_fragment, getSearchFragment());
         transaction.commit();
     }
