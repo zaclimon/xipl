@@ -74,7 +74,7 @@ public interface ContentPersistence {
 
     /**
      * Gives a list of the {@link AvContent} belonging to a given category. The list can be sorted
-     * or not.
+     * or not. A category can be defined as the root of the content tree (VOD, TV shows, TV Catchup)
      *
      * @param category the given category for a content
      * @param isAlphabeticallySorted whether the retrieved contents should be sorted by alphabetical order
