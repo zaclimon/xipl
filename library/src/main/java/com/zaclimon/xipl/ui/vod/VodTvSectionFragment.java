@@ -85,7 +85,6 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
     private ProgressBarManager mProgressBarManager;
     private AsyncProcessAvContent mAsyncProcessAvContent;
     private ScaleFrameLayout mScaleFrameLayout;
-    private List<AvContent> mModifiedContents;
 
     /**
      * Gets the link to retrieve an M3U playlist from a given endpoint
