@@ -57,11 +57,11 @@ public interface ContentPersistence {
     void deleteAll();
 
     /**
-     * Lists all the items that have been persisted.
+     * Gets all the items that have been persisted.
      *
      * @return the list of all the {@link AvContent} that have been persisted
      */
-    List<AvContent> listAll();
+    List<AvContent> getAll();
 
     /**
      * Gives a list of {@link AvContent} containing a given title. The list can be sorted or not.
