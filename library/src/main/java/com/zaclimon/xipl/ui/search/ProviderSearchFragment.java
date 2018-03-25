@@ -16,9 +16,8 @@
 
 package com.zaclimon.xipl.ui.search;
 
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.SearchSupportFragment;
@@ -27,7 +26,6 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.ObjectAdapter;
-import android.support.v17.leanback.widget.SpeechRecognitionCallback;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -64,8 +62,6 @@ public abstract class ProviderSearchFragment extends SearchSupportFragment imple
      * Value used to display the search results based on their group.
      */
     public static final int SEARCH_LAYOUT_GROUP_ROW = 1;
-
-    private static final int REQUEST_SPEECH = 0;
 
     private ArrayObjectAdapter mRowsAdapter;
     private FrameLayout mFrameLayout;
@@ -115,16 +111,6 @@ public abstract class ProviderSearchFragment extends SearchSupportFragment imple
         textView.setText(R.string.no_results_found);
         setSearchResultProvider(this);
         setOnItemViewClickedListener(new AvContentTvItemClickListener(getPlaybackActivity()));
-        setSpeechRecognitionCallback(new SpeechRecognitionCallback() {
-            @Override
-            public void recognizeSpeech() {
-                try {
-                    startActivityForResult(getRecognizerIntent(), REQUEST_SPEECH);
-                } catch (ActivityNotFoundException anf) {
-                    Toast.makeText(getActivity(), R.string.cannot_start_voice_search, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
@@ -170,9 +156,9 @@ public abstract class ProviderSearchFragment extends SearchSupportFragment imple
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SPEECH && resultCode == Activity.RESULT_OK) {
-            setSearchQuery(data, true);
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (permissions[0].equals(Manifest.permission.RECORD_AUDIO) && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            Toast.makeText(getActivity(), R.string.record_audio_not_granted, Toast.LENGTH_SHORT).show();
         }
     }
 
