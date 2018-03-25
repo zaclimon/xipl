@@ -163,8 +163,6 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
                 objectAdapter.setItems(tempMap.get(group), getCallback());
                 i++;
             }
-        } else if (mScaleFrameLayout != null) {
-            showErrorView();
         }
     }
 
@@ -229,8 +227,9 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
      * Shows a view in which content is not available and hides the progress bar if it was shown.
      */
     private void showErrorView() {
-        if (isAdded()) {
+        if (isAdded() && mScaleFrameLayout != null) {
             View view = View.inflate(getActivity(), R.layout.view_content_unavailable, null);
+            mProgressBarManager.hide();
             mScaleFrameLayout.addView(view);
         }
     }
@@ -261,14 +260,14 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
                 if (!isCancelled()) {
                     final List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
                     if (avContents.size() != persistedSize && persistedSize == 0) {
-                        // Case where the list is being loaded for the first time.
+                        // Case where the content list is being loaded for the first time.
                         getContentPersistence().insert(avContents);
-                    } else if (avContents.size() != persistedSize && persistedSize != 0) {
-                        // Case where the contents list have been modified upstream.
+                    } else if (avContents.size() != persistedSize && avContents.size() != 0) {
+                        // Case where the content list have been modified upstream.
                         getContentPersistence().deleteCategory(VodTvSectionFragment.this.getClass().getSimpleName());
                         getContentPersistence().insert(avContents);
-                    } else {
-                        // Case where the content list might be empty. In that case, don't touch the cache.
+                    } else if (persistedSize == 0) {
+                        // Case where the upstream content list is empty and that there wasn't any content to begin with.
                         return (false);
                     }
                 }
