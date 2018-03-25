@@ -261,15 +261,18 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
 
                 if (!isCancelled()) {
                     final List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
-
                     if (avContents.size() != persistedSize && persistedSize == 0) {
+                        // Case where the list is being loaded for the first time.
                         getContentPersistence().insert(avContents);
-                    } else if (avContents.size() != persistedSize) {
+                    } else if (avContents.size() != persistedSize && persistedSize != 0) {
+                        // Case where the contents list have been modified upstream.
                         getContentPersistence().deleteCategory(VodTvSectionFragment.this.getClass().getSimpleName());
                         getContentPersistence().insert(avContents);
+                    } else {
+                        // Case where the content list might be empty. In that case, don't touch the cache.
+                        return (false);
                     }
                 }
-
                 return (true);
             } catch (IOException io) {
                 return (false);
