@@ -338,7 +338,7 @@ public class ExoPlayerAdapter extends PlayerAdapter implements Player.EventListe
     }
 
     @Override
-    public void onTimelineChanged(Timeline timeline, Object manifest) {
+    public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
     }
 
     @Override
@@ -346,7 +346,7 @@ public class ExoPlayerAdapter extends PlayerAdapter implements Player.EventListe
     }
 
     @Override
-    public void onPositionDiscontinuity() {
+    public void onPositionDiscontinuity(int reason) {
     }
 
     @Override
@@ -355,6 +355,16 @@ public class ExoPlayerAdapter extends PlayerAdapter implements Player.EventListe
 
     @Override
     public void onRepeatModeChanged(int repeatMode) {
+    }
+
+    @Override
+    public void onShuffleModeEnabledChanged(boolean enabled) {
+
+    }
+
+    @Override
+    public void onSeekProcessed() {
+
     }
 
     /**
