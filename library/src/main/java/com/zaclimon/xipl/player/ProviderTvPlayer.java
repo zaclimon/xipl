@@ -106,10 +106,12 @@ public class ProviderTvPlayer implements TvPlayer {
          */
 
         if (streamUrl.endsWith(".m3u8")) {
-            mediaSource = new HlsMediaSource(mediaUrl, dataSourceFactory, new Handler(), null);
+            HlsMediaSource.Factory factory = new HlsMediaSource.Factory(dataSourceFactory);
+            factory.setAllowChunklessPreparation(true);
+            mediaSource = factory.createMediaSource(mediaUrl);
         } else {
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            mediaSource = new ExtractorMediaSource(mediaUrl, dataSourceFactory, extractorsFactory, new Handler(), null);
+            ExtractorMediaSource.Factory factory = new ExtractorMediaSource.Factory(dataSourceFactory);
+            mediaSource = factory.createMediaSource(mediaUrl);
         }
 
         return (mediaSource);
