@@ -17,21 +17,29 @@
 package com.zaclimon.xipl.ui.vod;
 
 import android.content.Intent;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v17.leanback.app.ErrorSupportFragment;
 import android.support.v17.leanback.app.VideoSupportFragment;
 import android.support.v17.leanback.app.VideoSupportFragmentGlueHost;
-import android.support.v17.leanback.media.PlaybackGlue;
 import android.support.v17.leanback.media.PlaybackTransportControlGlue;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ext.leanback.LeanbackPlayerAdapter;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.zaclimon.xipl.R;
-import com.zaclimon.xipl.player.ExoPlayerAdapter;
 import com.zaclimon.xipl.properties.VodProperties;
 
 /**
@@ -43,7 +51,8 @@ import com.zaclimon.xipl.properties.VodProperties;
 
 public abstract class VodPlaybackFragment extends VideoSupportFragment {
 
-    PlaybackTransportControlGlue<ExoPlayerAdapter> mPlayerGlue;
+    PlaybackTransportControlGlue<LeanbackPlayerAdapter> mPlayerGlue;
+    SimpleExoPlayer mSimpleExoPlayer;
 
     /**
      * Retrieves the properties for a given VOD content
@@ -78,41 +87,37 @@ public abstract class VodPlaybackFragment extends VideoSupportFragment {
         Bundle arguments = getArguments();
         String url = arguments.getString(VodTvSectionFragment.AV_CONTENT_LINK_BUNDLE);
 
-        ExoPlayerAdapter exoPlayerAdapter = new ExoPlayerAdapter(getActivity());
-        exoPlayerAdapter.setAudioStreamType(AudioManager.USE_DEFAULT_STREAM_TYPE);
-        mPlayerGlue = new ProviderVideoMediaPlayerGlue<>(getActivity(), exoPlayerAdapter);
+        // Configure the ExoPlayer instance that will be used to play the media
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getActivity(), Util.getUserAgent(getActivity(), getActivity().getApplicationInfo().loadLabel(getActivity().getPackageManager()).toString()));
+        mSimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(new DefaultRenderersFactory(getActivity()), new DefaultTrackSelector(), new DefaultLoadControl());
+        ExtractorMediaSource.Factory factory = new ExtractorMediaSource.Factory(dataSourceFactory);
+        Uri uri = Uri.parse(url);
+        mSimpleExoPlayer.prepare(factory.createMediaSource(uri));
+        mSimpleExoPlayer.addListener(new Player.DefaultEventListener() {
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                super.onPlayerStateChanged(playWhenReady, playbackState);
+                if (playbackState == Player.STATE_READY && mPlayerGlue.getSeekProvider() == null) {
+                    mPlayerGlue.setSeekProvider(new ProviderPlaybackSeekDataProvider(mPlayerGlue.getDuration()));
+
+                    // Force content to fit to screen if wanted.
+                    if (getVodProperties().isVideoFitToScreen()) {
+                        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+                        mPlayerGlue.getPlayerAdapter().getCallback().onVideoSizeChanged(mPlayerGlue.getPlayerAdapter(), displayMetrics.widthPixels, displayMetrics.heightPixels);
+                    }
+                }
+            }
+        });
+
+        // Configure Leanback for playback. Use the updatePeriodMs used before in ExoPlayerAdapter
+        LeanbackPlayerAdapter playerAdapter = new LeanbackPlayerAdapter(getActivity(), mSimpleExoPlayer, 16);
+        mPlayerGlue = new PlaybackTransportControlGlue<>(getActivity(), playerAdapter);
         mPlayerGlue.setHost(new VideoSupportFragmentGlueHost(this));
         mPlayerGlue.setTitle(arguments.getString(VodTvSectionFragment.AV_CONTENT_TITLE_BUNDLE));
         mPlayerGlue.setSubtitle(arguments.getString(VodTvSectionFragment.AV_CONTENT_GROUP_BUNDLE));
-        mPlayerGlue.getPlayerAdapter().setDataSource(Uri.parse(url));
 
-        if (mPlayerGlue.isPrepared()) {
-            mPlayerGlue.play();
-        } else {
-            mPlayerGlue.addPlayerCallback(new PlaybackGlue.PlayerCallback() {
-                @Override
-                public void onPreparedStateChanged(PlaybackGlue glue) {
-                    super.onPreparedStateChanged(glue);
-                    if (glue.isPrepared()) {
-
-                        // Only add seek for capable videos...
-                        if (mPlayerGlue.getDuration() > 0) {
-                            mPlayerGlue.setSeekProvider(new ProviderPlaybackSeekDataProvider(mPlayerGlue.getDuration()));
-                        }
-
-                        // Force content to fit to screen if wanted.
-                        if (getVodProperties().isVideoFitToScreen()) {
-                            DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-                            mPlayerGlue.getPlayerAdapter().getCallback().onVideoSizeChanged(mPlayerGlue.getPlayerAdapter(), displayMetrics.widthPixels, displayMetrics.heightPixels);
-                        }
-
-                        glue.removePlayerCallback(this);
-                        glue.play();
-                    }
-                }
-            });
-        }
         setBackgroundType(BG_LIGHT);
+        mPlayerGlue.playWhenPrepared();
     }
 
     /**
@@ -148,6 +153,12 @@ public abstract class VodPlaybackFragment extends VideoSupportFragment {
             fragmentTransaction.replace(R.id.activity_vod_playback_fragment, errorFragment);
             fragmentTransaction.commit();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mSimpleExoPlayer.release();
     }
 
 }
