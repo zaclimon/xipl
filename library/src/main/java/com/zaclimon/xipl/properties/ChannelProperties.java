@@ -52,4 +52,13 @@ public interface ChannelProperties {
      */
     boolean isChannelRegionValid(Channel channel);
 
+    /**
+     * Determines if a channel's genre is restricted. Can be useful for users that only want to see
+     * a particular genre without filtering each channel individually.
+     *
+     * @param channel the channel that will be checked
+     * @return true if the channel's genre is restricted
+     */
+    boolean isChannelGenreValid(Channel channel);
+
 }

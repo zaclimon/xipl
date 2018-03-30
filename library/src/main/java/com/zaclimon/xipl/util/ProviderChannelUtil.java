@@ -57,6 +57,7 @@ public class ProviderChannelUtil {
 
         List<AvContent> channelContents = AvContentUtil.getAvContentsList(playlist);
         List<Channel> tempList = new ArrayList<>();
+        int channelNumber = 1;
 
         /*
          Google is kind of "weird" when it comes to the way it has of tuning channel/program
@@ -81,12 +82,29 @@ public class ProviderChannelUtil {
                 channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink, tempGroup, getProgramGenre(tempName, context));
             }
 
-            // Premium users might have VOD content in their playlist, don't include them.
-            if (properties.isLiveChannel(channel) && properties.isChannelRegionValid(channel)) {
+            // Some users might have playlist items that aren't valid channels, remove them.
+            if (properties.isLiveChannel(channel) && properties.isChannelRegionValid(channel) && properties.isChannelGenreValid(channel)) {
+                // Some channels might get filtered so let's use a counter which will only register "valid" ones.
+                channel = createChannel(channel, Integer.toString(channelNumber));
                 tempList.add(channel);
+                channelNumber++;
             }
         }
         return (tempList);
+    }
+
+    /**
+     * Creates a {@link Channel} that can be used by the Android TV framework and the Live Channels application
+     * if a channel has been created before.
+     *
+     * @param originalChannel the previously available channel
+     * @param displayNumber the desired channel number on the Live Channels application
+     * @return the channel to be used by the system
+     */
+    private static Channel createChannel(Channel originalChannel, String displayNumber) {
+        Channel.Builder builder = new Channel.Builder(originalChannel);
+        builder.setDisplayNumber(displayNumber);
+        return (builder.build());
     }
 
     /**
