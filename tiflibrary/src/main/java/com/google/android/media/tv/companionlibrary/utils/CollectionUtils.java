@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2016 The Android Open Source Project.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 package com.google.android.media.tv.companionlibrary.utils;
 
 import java.util.Arrays;
-/**
- * Static utilities for collections
- */
+
+/** Static utilities for collections */
 public class CollectionUtils {
     /**
      * Returns an array with the arrays concatenated together.
      *
-     * @see <a href="http://stackoverflow.com/a/784842/1122089">Stackoverflow answer</a> by
-     *      <a href="http://stackoverflow.com/users/40342/joachim-sauer">Joachim Sauer</a>
+     * @see <a href="http://stackoverflow.com/a/784842/1122089">Stackoverflow answer</a> by <a
+     *     href="http://stackoverflow.com/users/40342/joachim-sauer">Joachim Sauer</a>
      */
     public static <T> T[] concatAll(T[] first, T[]... rest) {
         int totalLength = first.length;

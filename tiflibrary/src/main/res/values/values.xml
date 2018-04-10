@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tif_guidedactions_title_text">#EEEEEE</color>
+    <color name="tif_scan_button_text">#EEEEEE</color>
+    <color name="tif_scan_channellist_background">#26EEEEEE</color>
+    <color name="tif_scan_description_text">#B3EEEEEE</color>
+    <color name="tif_scan_progress">#EEEEEE</color>
+    <color name="tif_scan_progress_background">#26EEEEEE</color>
+    <color name="tif_scan_title_text">#EEEEEE</color>
+    <dimen name="tif_scan_button_height">51dp</dimen>
+    <dimen name="tif_scan_button_margin_top">15dp</dimen>
+    <dimen name="tif_scan_button_padding">24dp</dimen>
+    <dimen name="tif_scan_button_text_size">16sp</dimen>
+    <dimen name="tif_scan_channel_name_width">96dp</dimen>
+    <dimen name="tif_scan_channel_num_width">48dp</dimen>
+    <dimen name="tif_scan_channellist_padding_bottom">12dp</dimen>
+    <dimen name="tif_scan_channellist_padding_start">40dp</dimen>
+    <dimen name="tif_scan_channellist_padding_top">12dp</dimen>
+    <dimen name="tif_scan_channellist_text_size">14sp</dimen>
+    <dimen name="tif_scan_channellist_width">312dp</dimen>
+    <dimen name="tif_scan_description_margin_top">19dp</dimen>
+    <dimen name="tif_scan_description_text_size">14sp</dimen>
+    <dimen name="tif_scan_icon_height">80dp</dimen>
+    <dimen name="tif_scan_icon_margin_right">24dp</dimen>
+    <dimen name="tif_scan_icon_width">80dp</dimen>
+    <dimen name="tif_scan_progress_height">4dp</dimen>
+    <dimen name="tif_scan_progress_margin_top">16dp</dimen>
+    <dimen name="tif_scan_progress_width">216dp</dimen>
+    <dimen name="tif_scan_title_margin_top">178dp</dimen>
+    <dimen name="tif_scan_title_text_size">34sp</dimen>
+    <integer name="tif_scan_title_max_lines">2</integer>
+    <string name="tif_channel_error_no_channels">No channels found</string>
+    <string name="tif_channel_error_no_programs">No programs found</string>
+    <string name="tif_channel_error_unknown">Unknown error</string>
+    <string name="tif_channel_scan_canceled">Channel scan canceled</string>
+    <string name="tif_channel_setup_cancel">Cancel Scan</string>
+    <string name="tif_channel_setup_description">This may take several minutes.</string>
+    <string name="tif_channel_setup_title">Channel Setup</string>
+    <style name="TifSetup" parent="Theme.Leanback.GuidedStep">
+
+  </style>
+    <style name="TifSetup.ChannelList">
+    <item name="android:layout_width">@dimen/tif_scan_channellist_width</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_marginTop">@dimen/tif_scan_channellist_padding_top</item>
+    <item name="android:layout_marginBottom">@dimen/tif_scan_channellist_padding_bottom</item>
+    <item name="android:paddingStart">@dimen/tif_scan_channellist_padding_start</item>
+    <item name="android:layout_below">@id/tif_tune_progress</item>
+    <item name="android:layout_toEndOf">@id/guidance_icon</item>
+    <item name="android:divider">@android:color/transparent</item>
+    <item name="android:scrollbars">none</item>
+    <item name="android:dividerHeight">7dp</item>
+    <item name="android:transcriptMode">alwaysScroll</item>
+    <item name="android:focusable">false</item>
+    <item name="android:descendantFocusability">blocksDescendants</item>
+  </style>
+    <style name="TifSetup.ScanProgress" parent="android:Widget.Material.ProgressBar.Horizontal">
+    <item name="android:importantForAccessibility">no</item>
+    <item name="android:layout_below">@id/guidance_description</item>
+    <item name="android:layout_toEndOf">@id/guidance_icon</item>
+    <item name="android:layout_height">@dimen/tif_scan_progress_height</item>
+    <item name="android:layout_width">@dimen/tif_scan_progress_width</item>
+    <item name="android:gravity">start</item>
+    <item name="android:layout_marginTop">@dimen/tif_scan_progress_margin_top</item>
+    <item name="android:layout_marginLeft">@dimen/tif_scan_icon_margin_right</item>
+    <item name="android:layout_alignWithParentIfMissing">true</item>
+    <item name="android:indeterminateOnly">false</item>
+    <item name="android:progressDrawable">@drawable/tif_scan_progress</item>
+    <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+    <item name="android:minHeight">20dip</item>
+    <item name="android:maxHeight">20dip</item>
+  </style>
+</resources>

@@ -23,8 +23,8 @@ import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
-import com.google.android.media.tv.companionlibrary.XmlTvParser;
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
+import com.google.android.media.tv.companionlibrary.xmltv.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
@@ -199,7 +199,7 @@ public abstract class ProviderEpgService extends EpgSyncJobService {
                 Log.e(LOG_TAG, "Couldn't retrieve the playlist/EPG");
                 Intent intent = new Intent(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED);
                 intent.putExtra(EpgSyncJobService.SYNC_STATUS, EpgSyncJobService.SYNC_ERROR);
-                intent.putExtra(EpgSyncJobService.BUNDLE_KEY_ERROR_REASON, EpgSyncJobService.ERROR_NO_CHANNELS);
+                intent.putExtra(BUNDLE_KEY_ERROR_REASON, EpgSyncJobService.ERROR_NO_CHANNELS);
                 LocalBroadcastManager.getInstance(ProviderEpgService.this).sendBroadcast(intent);
             }
         }

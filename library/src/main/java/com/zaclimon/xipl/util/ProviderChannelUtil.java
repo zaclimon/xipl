@@ -112,7 +112,7 @@ public class ProviderChannelUtil {
      *
      * @param displayName   the display name of the channel
      * @param displayNumber the display number of the channel
-     * @param epgId         the id as defined in {@link com.google.android.media.tv.companionlibrary.XmlTvParser}
+     * @param epgId         the id as defined in {@link com.google.android.media.tv.companionlibrary.xmltv.XmlTvParser}
      * @param logo          the logo url link
      * @param url           the video url link
      * @return the channel to be used by the system.
