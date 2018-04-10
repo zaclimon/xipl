@@ -57,7 +57,7 @@ public abstract class ProviderTvFragment extends BrowseSupportFragment {
     protected abstract String getAppName();
 
     /**
-     * Returns a map containing one or multiple {@link RowsFragment} alongside their respective
+     * Returns a map containing one or multiple {@link RowsSupportFragment} alongside their respective
      * header title(s).
      *
      * @return the list of RowsFragment mapped by title
