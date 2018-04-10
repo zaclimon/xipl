@@ -453,27 +453,29 @@ public abstract class EpgSyncJobService extends JobService {
                     broadcastError(e.getReason());
                     return null;
                 }
-                if (DEBUG) {
-                    Log.d(TAG, programs.toString());
-                }
-                for (int index = 0; index < programs.size(); index++) {
-                    if (programs.get(index).getChannelId() == -1) {
-                        // Automatically set the channel id if not set
-                        programs.set(
-                                index,
-                                new Program.Builder(programs.get(index))
-                                        .setChannelId(channelMap.valueAt(i).getId())
-                                        .build());
+                if (programs != null) {
+                    if (DEBUG) {
+                        Log.d(TAG, programs.toString());
                     }
-                }
+                    for (int index = 0; index < programs.size(); index++) {
+                        if (programs.get(index).getChannelId() == -1) {
+                            // Automatically set the channel id if not set
+                            programs.set(
+                                    index,
+                                    new Program.Builder(programs.get(index))
+                                            .setChannelId(channelMap.valueAt(i).getId())
+                                            .build());
+                        }
+                    }
 
-                // Double check if the job is cancelled, so that this task can be finished faster
-                // after cancel() is called.
-                if (isCancelled()) {
-                    broadcastError(ERROR_EPG_SYNC_CANCELED);
-                    return null;
+                    // Double check if the job is cancelled, so that this task can be finished faster
+                    // after cancel() is called.
+                    if (isCancelled()) {
+                        broadcastError(ERROR_EPG_SYNC_CANCELED);
+                        return null;
+                    }
+                    updatePrograms(channelUri, programs, runningChangeCount);
                 }
-                updatePrograms(channelUri, programs, runningChangeCount);
                 Intent intent =
                         createSyncScannedIntent(
                                 mInputId,
