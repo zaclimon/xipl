@@ -549,7 +549,7 @@ public class XmlTvParser {
          * @return A list of programs that belong to that id.
          */
         public List<Program> getPrograms(int id) {
-            return mProgramMap.get(id);
+            return mProgramMap.get((long) id);
         }
     }
 
