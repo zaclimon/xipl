@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseSupportFragment;
-import android.support.v17.leanback.app.RowsFragment;
 import android.support.v17.leanback.app.RowsSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;

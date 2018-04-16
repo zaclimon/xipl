@@ -20,7 +20,6 @@ import android.content.Context;
 import android.media.PlaybackParams;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.view.Surface;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -28,8 +27,6 @@ import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;

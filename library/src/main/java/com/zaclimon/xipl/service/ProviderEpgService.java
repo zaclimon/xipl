@@ -23,11 +23,11 @@ import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
-import com.google.android.media.tv.companionlibrary.xmltv.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
+import com.google.android.media.tv.companionlibrary.xmltv.XmlTvParser;
 import com.zaclimon.xipl.Constants;
 import com.zaclimon.xipl.properties.ChannelProperties;
 import com.zaclimon.xipl.util.ProviderChannelUtil;
