@@ -57,4 +57,6 @@ public class Constants {
             TvContract.Programs.Genres.TECH_SCIENCE,
             TvContract.Programs.Genres.TRAVEL
     };
+
+    private Constants(){}
 }
