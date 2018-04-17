@@ -57,10 +57,10 @@ public class RichFeedUtil {
         }
 
         try (InputStream inputStream = getInputStream(context, catalogUri)) {
-            sSampleTvListing = com.google.android.media.tv.companionlibrary.xmltv.XmlTvParser.parse(inputStream);
+            sSampleTvListing = XmlTvParser.parse(inputStream);
         } catch (IOException e) {
             Log.e(TAG, "Error in fetching " + catalogUri, e);
-        } catch (com.google.android.media.tv.companionlibrary.xmltv.XmlTvParser.XmlTvParseException e) {
+        } catch (XmlTvParser.XmlTvParseException e) {
             Log.e(TAG, "Error in parsing " + catalogUri, e);
         }
         return sSampleTvListing;
