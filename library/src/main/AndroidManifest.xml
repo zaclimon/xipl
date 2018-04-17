@@ -1,6 +1,9 @@
 <manifest package="com.zaclimon.xipl"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA" />
+    <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA" />
+
     <application
                  android:label="@string/app_name"
                  android:supportsRtl="true">
