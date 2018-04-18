@@ -19,7 +19,6 @@ package com.zaclimon.xipl.service;
 import android.app.job.JobParameters;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -31,10 +30,7 @@ import com.google.android.media.tv.companionlibrary.xmltv.XmlTvParser;
 import com.zaclimon.xipl.Constants;
 import com.zaclimon.xipl.properties.ChannelProperties;
 import com.zaclimon.xipl.util.ProviderChannelUtil;
-import com.zaclimon.xipl.util.RichFeedUtil;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -50,13 +46,14 @@ import java.util.concurrent.TimeUnit;
  * Creation date: 11/06/17
  */
 
-public abstract class ProviderEpgService extends EpgSyncJobService {
+public abstract class ProviderEpgService extends EpgSyncJobService implements EpgProcessingCallback {
 
     private final String LOG_TAG = getClass().getSimpleName();
 
     private List<Channel> mChannels;
     private String mInputId;
     private XmlTvParser.TvListing mTvListing;
+    private JobParameters mJobParameters;
 
     /**
      * Used to get the playlist URL from a provider.
@@ -142,66 +139,34 @@ public abstract class ProviderEpgService extends EpgSyncJobService {
     public boolean onStartJob(JobParameters params) {
         // Broadcast status
         mInputId = params.getExtras().getString(BUNDLE_KEY_INPUT_ID);
+        mJobParameters = params;
+
         Intent intent = new Intent(ACTION_SYNC_STATUS_CHANGED);
         intent.putExtra(BUNDLE_KEY_INPUT_ID, mInputId);
         Log.d(LOG_TAG, "Sync program data for " + mInputId);
         intent.putExtra(SYNC_STATUS, SYNC_STARTED);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
-        AsyncEpgDownload asyncEpgDownload = new AsyncEpgDownload(params);
-        asyncEpgDownload.execute();
+        AsyncEpgProcess asyncEpgProcess = new AsyncEpgProcess(this, getPlaylistUrl(), getEpgUrl(), getChannelProperties(), this);
+        asyncEpgProcess.execute();
         return (true);
     }
 
+    @Override
+    public void onProcessSuccess(List<Channel> channels, XmlTvParser.TvListing listing) {
+        mChannels = channels;
+        mTvListing = listing;
+        EpgSyncTask epgSyncTask = new EpgSyncTask(mJobParameters);
+        epgSyncTask.execute();
+    }
 
-    /**
-     * Custom class used to download in a asynchronous fashion the M3U playlist as well
-     * as the EPG guide from a user.
-     *
-     * @author zaclimon
-     * Creation date: 11/06/17
-     */
-    public class AsyncEpgDownload extends AsyncTask<Void, Void, Boolean> {
-
-        private JobParameters mJobParameters;
-
-        public AsyncEpgDownload(JobParameters jobParameters) {
-            mJobParameters = jobParameters;
-        }
-
-        @Override
-        public Boolean doInBackground(Void... params) {
-
-            try {
-                InputStream inputStream = RichFeedUtil.getInputStream(ProviderEpgService.this, Uri.parse(getPlaylistUrl()));
-
-                if (getEpgUrl() != null) {
-                    mTvListing = RichFeedUtil.getRichTvListings(ProviderEpgService.this, getEpgUrl());
-                }
-
-                mChannels = ProviderChannelUtil.createChannelList(inputStream, ProviderEpgService.this, getChannelProperties());
-
-                return (mChannels != null);
-            } catch (IOException io) {
-                io.printStackTrace();
-                return (false);
-            }
-        }
-
-        @Override
-        public void onPostExecute(Boolean result) {
-
-            if (result) {
-                EpgSyncTask epgSyncTask = new EpgSyncTask(mJobParameters);
-                epgSyncTask.execute();
-            } else {
-                // Cancel the sync if we couldn't retrieve the link anything
-                Log.e(LOG_TAG, "Couldn't retrieve the playlist/EPG");
-                Intent intent = new Intent(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED);
-                intent.putExtra(EpgSyncJobService.SYNC_STATUS, EpgSyncJobService.SYNC_ERROR);
-                intent.putExtra(BUNDLE_KEY_ERROR_REASON, EpgSyncJobService.ERROR_NO_CHANNELS);
-                LocalBroadcastManager.getInstance(ProviderEpgService.this).sendBroadcast(intent);
-            }
-        }
+    @Override
+    public void onProcessFailed() {
+        // Cancel the sync if we couldn't retrieve the link anything
+        Log.e(LOG_TAG, "Couldn't retrieve the playlist/EPG");
+        Intent intent = new Intent(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED);
+        intent.putExtra(EpgSyncJobService.SYNC_STATUS, EpgSyncJobService.SYNC_ERROR);
+        intent.putExtra(BUNDLE_KEY_ERROR_REASON, EpgSyncJobService.ERROR_NO_CHANNELS);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
