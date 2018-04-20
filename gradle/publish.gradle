@@ -1,0 +1,42 @@
+/* 
+ * Gradle Commands for publishing to Bintray
+ * ./gradlew :clean :library:assembleRelease :library:bintrayUpload -PdryRun=false
+ * ./gradlew :clean :tiflibrary:assembleRelease :tiflibrary:bintrayUpload -PdryRun=false
+ */
+
+class MissingConfigurePublishException extends GradleException {
+
+    MissingConfigurePublishException(String extraName) {
+        super("Extra '$extraName' missing. " +
+                "Please provide with 'ext.set('$extraName', { ['artifactId': 'artifactId', desc: 'description'] })' " +
+                "(while 'desc' is optional)!")
+    }
+
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.1'
+    }
+}
+
+apply plugin: com.novoda.gradle.release.ReleasePlugin
+
+def libraryVersion = '1.0.0'
+
+Closure configurePublish = ext.has('configurePublish') ? ext.get('configurePublish') : {}
+def config = configurePublish()
+if (config == null) throw new MissingConfigurePublishException('configurePublish')
+
+publish {
+    repoName = 'xipl'
+    userOrg = 'zaclimon'
+    groupId = 'com.zaclimon'
+    artifactId = config['artifactId']
+    publishVersion = libraryVersion
+    desc = config['desc']
+    repository = 'https://github.com/zaclimon/xipl'
+}

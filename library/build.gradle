@@ -33,3 +33,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     api project(':tiflibrary')
 }
+
+// Bintray upload details
+ext.set('configurePublish', { [artifactId: 'xipl', desc: 'XtreamCodes IPTV Provider Library'] })
+apply from: "../gradle/publish.gradle"

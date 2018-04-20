@@ -1,9 +1,4 @@
-plugins {
-    id "com.jfrog.bintray" version "1.7"
-}
-
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 27
@@ -47,72 +42,11 @@ dependencies {
     doclava 'com.google.doclava:doclava:1.0.6'
 }
 
-def packageVersion = '0.3.1'
-
-task sourceJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
+// JavaDoc doesn't seem to work so disable it
+tasks.withType(Javadoc).all {
+    enabled = false
 }
 
-task javadoc(type: Javadoc, dependsOn: project.configurations.doclava) {
-    failOnError = false
-    title = null
-    source = android.sourceSets.main.java.srcDirs
-    options.doclet = "com.google.doclava.Doclava"
-    options.docletpath = configurations.doclava.files.asType(List)
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-afterEvaluate {
-    javadoc.classpath += files(android.libraryVariants.collect { variant ->
-        variant.javaCompile.classpath.files
-    })
-}
-
-publishing {
-    publications {
-        libraryPublish(MavenPublication) {
-            groupId 'com.google.android.libraries.tv'
-            artifactId 'companionlibrary'
-            version packageVersion
-            artifacts = configurations.archives.artifacts
-            artifact sourceJar
-            artifact javadocJar
-            pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
-                configurations.compile.allDependencies.each {
-                    if(it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null)
-                    {
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', it.group)
-                        dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
-                    }
-                }
-            }
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-    publications = ['libraryPublish']
-    publish = true
-    pkg {
-        repo = 'tif-companion'
-        name = 'tif-companion'
-        userOrg = 'google'
-        version {
-            name = packageVersion
-            gpg {
-                sign = true
-            }
-        }
-    }
-}
+// Bintray upload details
+ext.set('configurePublish', { [artifactId: 'tiflibrary', desc: 'Android TIF Companion Library adapted for xipl'] })
+apply from: "../gradle/publish.gradle"
