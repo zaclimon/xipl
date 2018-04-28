@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.media.tv.TvContract;
 import android.os.Build;
 import android.text.TextUtils;
+
 import com.google.android.media.tv.companionlibrary.utils.CollectionUtils;
 
 /** A convenience class to create and insert channel entries into the database. */

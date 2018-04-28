@@ -23,7 +23,9 @@ import android.media.tv.TvContract;
 import android.media.tv.TvInputService;
 import android.os.Build;
 import android.text.TextUtils;
+
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
+
 import java.util.Objects;
 
 /**

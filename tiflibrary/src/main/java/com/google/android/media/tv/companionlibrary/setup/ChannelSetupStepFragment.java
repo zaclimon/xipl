@@ -30,14 +30,16 @@ import android.util.Log;
 import android.util.Pair;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.media.tv.companionlibrary.R;
 import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.sync.SyncStatusBroadcastReceiver;
 import com.google.android.media.tv.companionlibrary.sync.SyncStatusBroadcastReceiver.SyncListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Gradle puts all resources in the base package, so companionlibrary.R must be imported.
-import com.google.android.media.tv.companionlibrary.R;
 
 /**
  * A guided step for scanning TV Input Service channels using a {@link EpgSyncJobService}.

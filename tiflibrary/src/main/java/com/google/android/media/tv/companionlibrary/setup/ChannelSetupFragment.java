@@ -36,13 +36,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.media.tv.companionlibrary.R;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.sync.SyncStatusBroadcastReceiver;
 import com.google.android.media.tv.companionlibrary.sync.SyncStatusBroadcastReceiver.SyncListener;
 
 // Gradle puts all resources in the base package, so companionlibrary.R must be imported.
-import com.google.android.media.tv.companionlibrary.R;
 
 /**
  * The ChannelSetupFragment class provides a simple extendable class to create a user interface for

@@ -22,10 +22,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.google.android.media.tv.companionlibrary.R;
+
 import java.util.ArrayList;
 
 // Gradle puts all resources in the base package, so companionlibrary.R must be imported.
-import com.google.android.media.tv.companionlibrary.R;
 
 /** List view adapter for a channel using a pair of strings for the display number and name. */
 final class ChannelAdapter extends BaseAdapter {

@@ -17,13 +17,16 @@
 package com.google.android.media.tv.companionlibrary.model;
 
 import android.support.annotation.NonNull;
+
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This is a serialized class used for storing and retrieving serialized data from {@link

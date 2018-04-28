@@ -22,8 +22,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-// Gradle puts all resources in the base package, so companionlibrary.R must be imported.
 import com.google.android.media.tv.companionlibrary.R;
+
+// Gradle puts all resources in the base package, so companionlibrary.R must be imported.
 
 /**
  * {@link GuidanceStylist} for {@link ChannelSetupStepFragment} and {@link
