@@ -25,7 +25,7 @@ buildscript {
 
 apply plugin: com.novoda.gradle.release.ReleasePlugin
 
-def libraryVersion = '0.1.0'
+def libraryVersion = '0.1.1'
 
 Closure configurePublish = ext.has('configurePublish') ? ext.get('configurePublish') : {}
 def config = configurePublish()
