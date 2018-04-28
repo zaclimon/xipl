@@ -30,10 +30,10 @@ import java.util.regex.Pattern;
 public class Constants {
 
     // M3U file attributes
-    public static final Pattern ATTRIBUTE_TVG_ID_PATTERN = Pattern.compile("tvg-id.\"(.*?)\"");
-    public static final Pattern ATTRIBUTE_TVG_LOGO_PATTERN = Pattern.compile("tvg-logo.\"(.*?)\"");
-    public static final Pattern ATTRIBUTE_TVG_NAME_PATTERN = Pattern.compile("tvg-name.\"(.*?)\"");
-    public static final Pattern ATTRIBUTE_GROUP_TITLE_PATTERN = Pattern.compile("group-title.\"(.*?)\"");
+    public static final Pattern ATTRIBUTE_TVG_ID_PATTERN = Pattern.compile("tvg-id.\"(.*?)\"", Pattern.CASE_INSENSITIVE);
+    public static final Pattern ATTRIBUTE_TVG_LOGO_PATTERN = Pattern.compile("tvg-logo.\"(.*?)\"", Pattern.CASE_INSENSITIVE);
+    public static final Pattern ATTRIBUTE_TVG_NAME_PATTERN = Pattern.compile("tvg-name.\"(.*?)\"", Pattern.CASE_INSENSITIVE);
+    public static final Pattern ATTRIBUTE_GROUP_TITLE_PATTERN = Pattern.compile("group-title.\"(.*?)\"", Pattern.CASE_INSENSITIVE);
 
     // Channel configuration stuff
     public static final String EPG_ID_PROVIDER = "epg_id";
