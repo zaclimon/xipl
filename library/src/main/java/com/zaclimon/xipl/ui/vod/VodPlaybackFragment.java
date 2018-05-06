@@ -158,7 +158,9 @@ public abstract class VodPlaybackFragment extends VideoSupportFragment {
     @Override
     public void onStop() {
         super.onStop();
-        mSimpleExoPlayer.release();
+        if (mSimpleExoPlayer != null) {
+            mSimpleExoPlayer.release();
+        }
     }
 
 }
