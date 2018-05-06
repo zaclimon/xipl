@@ -21,7 +21,7 @@ import android.media.tv.TvInputManager;
 import android.media.tv.TvTrackInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.os.SystemClock;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -258,10 +258,15 @@ public class ProviderTvInputService extends BaseTvInputService {
                   Restart the loading after 5 seconds.
                   */
 
-                SystemClock.sleep(5000);
-                Toast.makeText(mContext, R.string.stream_failure_retry, Toast.LENGTH_SHORT).show();
-                mProviderTvPlayer.restart(mContext);
-                mProviderTvPlayer.play();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mContext, R.string.stream_failure_retry, Toast.LENGTH_SHORT).show();
+                        mProviderTvPlayer.restart(mContext);
+                        mProviderTvPlayer.play();
+                    }
+                }, 5000);
             } else if (error.getCause() instanceof HttpDataSource.HttpDataSourceException) {
                 // Timeout, nothing we can do really...
                 Toast.makeText(mContext, R.string.channel_stream_failure, Toast.LENGTH_SHORT).show();
