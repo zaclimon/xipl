@@ -262,9 +262,11 @@ public class ProviderTvInputService extends BaseTvInputService {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, R.string.stream_failure_retry, Toast.LENGTH_SHORT).show();
-                        mProviderTvPlayer.restart(mContext);
-                        mProviderTvPlayer.play();
+                        if (mContext != null && mProviderTvPlayer != null) {
+                            Toast.makeText(mContext, R.string.stream_failure_retry, Toast.LENGTH_SHORT).show();
+                            mProviderTvPlayer.restart(mContext);
+                            mProviderTvPlayer.play();
+                        }
                     }
                 }, 5000);
             } else if (error.getCause() instanceof HttpDataSource.HttpDataSourceException) {
