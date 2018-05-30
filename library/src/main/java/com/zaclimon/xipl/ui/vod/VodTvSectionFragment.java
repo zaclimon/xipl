@@ -226,6 +226,12 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
         }
     }
 
+    /**
+     * Adds a new {@link ArrayObjectAdapter} for a new VOD content category
+     *
+     * @param tempMap the map used to retrieve contents
+     * @param group the name of the VOD content group
+     */
     private void addContentRow(Map<String, List<AvContent>> tempMap, String group) {
         if (mRowsAdapter != null) {
             ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getImageProcessor()));
