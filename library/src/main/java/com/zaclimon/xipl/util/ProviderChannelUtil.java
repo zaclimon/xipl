@@ -83,7 +83,7 @@ public class ProviderChannelUtil {
             }
 
             // Some users might have playlist items that aren't valid channels, remove them.
-            if (properties.isLiveChannel(channel) && properties.isChannelRegionValid(channel) && properties.isChannelGenreValid(channel)) {
+            if (properties.isLiveChannel(channel) && properties.isChannelRegionValid(channel) && properties.isChannelGenreValid(channel) && properties.isChannelGroupValid(channel)) {
                 // Some channels might get filtered so let's use a counter which will only register "valid" ones.
                 channel = createChannel(channel, Integer.toString(channelNumber));
                 tempList.add(channel);

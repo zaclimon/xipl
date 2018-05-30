@@ -53,12 +53,21 @@ public interface ChannelProperties {
     boolean isChannelRegionValid(Channel channel);
 
     /**
-     * Determines if a channel's genre is restricted. Can be useful for users that only want to see
+     * Determines if a channel's genre is valid. Can be useful for users that only want to see
      * a particular genre without filtering each channel individually.
      *
      * @param channel the channel that will be checked
-     * @return true if the channel's genre is restricted
+     * @return true if the channel's genre is valid
      */
     boolean isChannelGenreValid(Channel channel);
+
+    /**
+     * Determines if a channel's playlist group can be added to the channel list. Can offer a bit more
+     * granularity compared to channel region filtering for example.
+     *
+     * @param channel the channel that will be checked
+     * @return true if the channel's group is valid.
+     */
+    boolean isChannelGroupValid(Channel channel);
 
 }
