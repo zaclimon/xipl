@@ -139,10 +139,7 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
         if (!tempMap.isEmpty()) {
             mProgressBarManager.hide();
             for (String group : tempMap.keySet()) {
-                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getImageProcessor()));
-                HeaderItem header = new HeaderItem(group);
-                arrayObjectAdapter.addAll(0, tempMap.get(group));
-                mRowsAdapter.add(new ListRow(header, arrayObjectAdapter));
+                addContentRow(tempMap, group);
             }
         }
     }
@@ -155,12 +152,18 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
         if (!tempMap.isEmpty()) {
             Set<String> groups = tempMap.keySet();
             int i = 0;
+            int rowsAdapterSize = mRowsAdapter.size();
             mProgressBarManager.hide();
 
             for (String group : groups) {
-                ListRow tempListRow = (ListRow) mRowsAdapter.get(i);
-                ArrayObjectAdapter objectAdapter = (ArrayObjectAdapter) tempListRow.getAdapter();
-                objectAdapter.setItems(tempMap.get(group), getCallback());
+                // It might be possible that a new content row is being added while the rows have been generated.
+                if (i >= rowsAdapterSize) {
+                    addContentRow(tempMap, group);
+                } else {
+                    ListRow tempListRow = (ListRow) mRowsAdapter.get(i);
+                    ArrayObjectAdapter objectAdapter = (ArrayObjectAdapter) tempListRow.getAdapter();
+                    objectAdapter.setItems(tempMap.get(group), getCallback());
+                }
                 i++;
             }
         }
@@ -220,6 +223,15 @@ public abstract class VodTvSectionFragment extends RowsSupportFragment {
 
         if (mRowsAdapter.size() == 0 && mScaleFrameLayout != null) {
             mScaleFrameLayout.removeAllViews();
+        }
+    }
+
+    private void addContentRow(Map<String, List<AvContent>> tempMap, String group) {
+        if (mRowsAdapter != null) {
+            ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(getImageProcessor()));
+            HeaderItem header = new HeaderItem(group);
+            arrayObjectAdapter.addAll(0, tempMap.get(group));
+            mRowsAdapter.add(new ListRow(header, arrayObjectAdapter));
         }
     }
 
