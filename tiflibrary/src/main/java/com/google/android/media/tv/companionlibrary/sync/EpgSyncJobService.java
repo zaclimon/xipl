@@ -76,7 +76,7 @@ import java.util.concurrent.Executors;
  */
 public abstract class EpgSyncJobService extends JobService {
     private static final String TAG = "EpgSyncJobService";
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     /** The action that will be broadcast when the job service's status changes. */
     public static final String ACTION_SYNC_STATUS_CHANGED =
