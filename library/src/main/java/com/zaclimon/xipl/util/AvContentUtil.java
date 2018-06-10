@@ -72,12 +72,16 @@ public class AvContentUtil {
         List<String> playlistStrings = getAvContentsAsString(playlist);
         List<AvContent> avContents = new ArrayList<>();
 
-        for (int i = 0; i < playlistStrings.size(); i++) {
-            if (playlistStrings.get(i).contains("#EXTINF")) {
-                // The next line is guaranteed to be the content link.
-                AvContent avContent = createAvContent(playlistStrings.get(i), playlistStrings.get(i + 1), contentCategory);
-                if (avContent != null) {
-                    avContents.add(avContent);
+        if (playlistStrings != null) {
+            int size = playlistStrings.size();
+
+            for (int i = 0; i < size; i++) {
+                if (playlistStrings.get(i).contains("#EXTINF")) {
+                    // The next line is guaranteed to be the content link.
+                    AvContent avContent = createAvContent(playlistStrings.get(i), playlistStrings.get(i + 1), contentCategory);
+                    if (avContent != null) {
+                        avContents.add(avContent);
+                    }
                 }
             }
         }
