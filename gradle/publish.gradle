@@ -2,6 +2,8 @@
  * Gradle Commands for publishing to Bintray
  * ./gradlew :clean :library:assembleRelease :library:bintrayUpload -PdryRun=false
  * ./gradlew :clean :tiflibrary:assembleRelease :tiflibrary:bintrayUpload -PdryRun=false
+ *
+ * Set the "bintrayUser" and "bintrayKey" variables accordingly
  */
 
 class MissingConfigurePublishException extends GradleException {
@@ -25,7 +27,7 @@ buildscript {
 
 apply plugin: com.novoda.gradle.release.ReleasePlugin
 
-def libraryVersion = '0.1.2'
+def libraryVersion = '0.2.0'
 
 Closure configurePublish = ext.has('configurePublish') ? ext.get('configurePublish') : {}
 def config = configurePublish()
