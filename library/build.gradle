@@ -27,9 +27,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.1'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:2.8.1'
-    implementation 'com.google.android.exoplayer:extension-leanback:2.8.1'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.2'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.8.2'
+    implementation 'com.google.android.exoplayer:extension-leanback:2.8.2'
     testImplementation 'junit:junit:4.12'
     api project(':tiflibrary')
 }
