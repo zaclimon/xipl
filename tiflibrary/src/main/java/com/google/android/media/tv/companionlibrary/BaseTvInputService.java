@@ -267,7 +267,10 @@ public abstract class BaseTvInputService extends TvInputService {
 
             mChannelUri = channelUri;
             long channelId = ContentUris.parseId(channelUri);
-            mCurrentChannel = mChannelMap.get(channelId);
+
+            if (mChannelMap != null) {
+                mCurrentChannel = mChannelMap.get(channelId);
+            }
 
             mTimeShiftedPlaybackPosition = TvInputManager.TIME_SHIFT_INVALID_TIME;
 
@@ -653,7 +656,7 @@ public abstract class BaseTvInputService extends TvInputService {
 
         private void playCurrentChannel() {
             Message playAd = null;
-            if (mCurrentChannel.getInternalProviderData() != null) {
+            if (mCurrentChannel != null && mCurrentChannel.getInternalProviderData() != null) {
                 // Get the last played ad time for this channel.
                 long mostRecentOnTuneAdWatchedTime =
                         mContext.getSharedPreferences(
@@ -864,7 +867,7 @@ public abstract class BaseTvInputService extends TvInputService {
                     Log.i(TAG, "Ad completed");
                 }
                 // Check if the ad played was an on-tune Channel ad
-                if (mNeedToCheckChannelAd) {
+                if (mCurrentChannel != null && mNeedToCheckChannelAd) {
                     // In some TV apps, opening the guide will cause the session to restart, so this
                     // value is stored in SharedPreferences to persist between sessions.
                     SharedPreferences.Editor editor =
