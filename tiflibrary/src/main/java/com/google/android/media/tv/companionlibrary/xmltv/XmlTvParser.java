@@ -193,7 +193,10 @@ public class XmlTvParser {
         while (parser.next() != XmlPullParser.END_DOCUMENT) {
             if (parser.getEventType() == XmlPullParser.START_TAG
                     && TAG_CHANNEL.equalsIgnoreCase(parser.getName())) {
-                channels.add(parseChannel(parser));
+                Channel channel = parseChannel(parser);
+                if (channel != null) {
+                    channels.add(channel);
+                }
             }
             if (parser.getEventType() == XmlPullParser.START_TAG
                     && TAG_PROGRAM.equalsIgnoreCase(parser.getName())) {
@@ -244,7 +247,8 @@ public class XmlTvParser {
             }
         }
         if (TextUtils.isEmpty(id) || TextUtils.isEmpty(displayName)) {
-            throw new IllegalArgumentException("id and display-name can not be null.");
+            // In this case, the channel is simply invalid so skip it...
+            return null;
         }
 
         // Developers should assign original network ID in the right way not using the fake ID.
