@@ -92,20 +92,24 @@ public class ProviderTvInputService extends BaseTvInputService {
 
         @Override
         public void onPlayChannel(Channel channel) {
-            mProviderTvPlayer = new ProviderTvPlayer(mContext, channel.getInternalProviderData().getVideoUrl());
-            mProviderTvPlayer.addListener(this);
+            if (channel.getInternalProviderData() !=  null) {
+                mProviderTvPlayer = new ProviderTvPlayer(mContext, channel.getInternalProviderData().getVideoUrl());
+                mProviderTvPlayer.addListener(this);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_UNSUPPORTED);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_UNSUPPORTED);
+                }
+
+                if (DEBUG) {
+                    Log.d(getClass().getSimpleName(), "Video Url: " + channel.getInternalProviderData().getVideoUrl());
+                    Log.d(getClass().getSimpleName(), "Video format: " + channel.getVideoFormat());
+                }
+
+                // Notify when the video is available so the channel surface can be shown to the screen.
+                mProviderTvPlayer.play();
+            } else {
+                Toast.makeText(mContext, R.string.channel_stream_failure, Toast.LENGTH_SHORT).show();
             }
-
-            if (DEBUG) {
-                Log.d(getClass().getSimpleName(), "Video Url: " + channel.getInternalProviderData().getVideoUrl());
-                Log.d(getClass().getSimpleName(), "Video format: " + channel.getVideoFormat());
-            }
-
-            // Notify when the video is available so the channel surface can be shown to the screen.
-            mProviderTvPlayer.play();
         }
 
         @Override
