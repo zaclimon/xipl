@@ -16,17 +16,6 @@ class MissingConfigurePublishException extends GradleException {
 
 }
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.8.1'
-    }
-}
-
-apply plugin: com.novoda.gradle.release.ReleasePlugin
-
 def libraryVersion = '0.2.1'
 
 Closure configurePublish = ext.has('configurePublish') ? ext.get('configurePublish') : {}
@@ -36,9 +25,9 @@ if (config == null) throw new MissingConfigurePublishException('configurePublish
 publish {
     repoName = 'xipl'
     userOrg = 'zaclimon'
-    groupId = 'com.zaclimon'
+    group = 'com.zaclimon'
+    version = libraryVersion
     artifactId = config['artifactId']
-    publishVersion = libraryVersion
     desc = config['desc']
     repository = 'https://github.com/zaclimon/xipl'
 }
