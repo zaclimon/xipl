@@ -18,7 +18,7 @@ package com.google.android.media.tv.companionlibrary.xmltv;
 
 import android.media.tv.TvContract;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import com.google.android.media.tv.companionlibrary.BuildConfig;
 import com.google.android.media.tv.companionlibrary.XmlTvParser;

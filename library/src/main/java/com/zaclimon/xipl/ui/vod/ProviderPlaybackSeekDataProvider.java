@@ -17,10 +17,10 @@
 
 package com.zaclimon.xipl.ui.vod;
 
-import android.support.v17.leanback.widget.PlaybackSeekDataProvider;
+import androidx.leanback.widget.PlaybackSeekDataProvider;
 
 /**
- * Base {@link PlaybackSeekDataProvider} for seeking through a {@link android.support.v17.leanback.media.PlaybackTransportControlGlue}
+ * Base {@link PlaybackSeekDataProvider} for seeking through a {@link androidx.leanback.media.PlaybackTransportControlGlue}
  *
  * @author zaclimon
  * Creation date: 31/07/17

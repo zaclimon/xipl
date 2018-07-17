@@ -20,11 +20,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v17.leanback.app.ErrorSupportFragment;
-import android.support.v17.leanback.app.VideoSupportFragment;
-import android.support.v17.leanback.app.VideoSupportFragmentGlueHost;
-import android.support.v17.leanback.media.PlaybackTransportControlGlue;
-import android.support.v4.app.FragmentTransaction;
+import androidx.leanback.app.ErrorSupportFragment;
+import androidx.leanback.app.VideoSupportFragment;
+import androidx.leanback.app.VideoSupportFragmentGlueHost;
+import androidx.leanback.media.PlaybackTransportControlGlue;
+import androidx.fragment.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 
 import com.google.android.exoplayer2.DefaultLoadControl;

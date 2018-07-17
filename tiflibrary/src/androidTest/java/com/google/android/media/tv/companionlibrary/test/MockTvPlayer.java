@@ -19,7 +19,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.Surface;
 
 import com.google.android.media.tv.companionlibrary.TvPlayer;

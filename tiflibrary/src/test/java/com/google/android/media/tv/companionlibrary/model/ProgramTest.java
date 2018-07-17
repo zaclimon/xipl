@@ -20,7 +20,7 @@ import android.database.MatrixCursor;
 import android.media.tv.TvContentRating;
 import android.media.tv.TvContract;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import com.google.android.media.tv.companionlibrary.BuildConfig;
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;

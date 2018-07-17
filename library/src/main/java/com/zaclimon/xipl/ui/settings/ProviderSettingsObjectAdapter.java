@@ -17,9 +17,9 @@
 package com.zaclimon.xipl.ui.settings;
 
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.leanback.widget.ArrayObjectAdapter;
 
 import com.zaclimon.xipl.ui.components.cardview.CardViewPresenter;
 

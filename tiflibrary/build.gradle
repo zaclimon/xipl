@@ -2,15 +2,15 @@ apply plugin: 'com.android.library'
 apply plugin: "guru.stefma.bintrayrelease"
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -28,18 +28,18 @@ configurations {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:leanback-v17:27.1.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.leanback:leanback:1.0.0-beta01'
     implementation 'com.google.ads.interactivemedia.v3:interactivemedia:3.6.0'
     implementation 'com.google.android.gms:play-services-ads-lite:15.0.1'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.10.19'
     testImplementation "org.robolectric:robolectric:3.1"
-    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
-    androidTestImplementation 'com.android.support.test:runner:0.5'
-    androidTestImplementation 'com.android.support.test:rules:0.5'
-    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    androidTestImplementation 'androidx.annotation:annotation:1.0.0-beta01'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
+    androidTestImplementation 'androidx.test:rules:1.1.0-alpha3'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0-alpha3'
     doclava 'com.google.doclava:doclava:1.0.6'
 }
 

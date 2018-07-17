@@ -17,7 +17,7 @@ package com.google.android.media.tv.companionlibrary.test;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.XmlTvParser;
