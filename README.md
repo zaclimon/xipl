@@ -35,10 +35,6 @@ Simply import the library to your `build.gradle`
 
 Note: For more information on how to get everything working, please see FAQ.md.
 
-## Demo application
-
-A demo application is available to showcase xipl's implementation. You can get it by building it directly from this project. The source code is available under the "demoapp" module.
-
 ## FAQ
 
 Please see [`FAQ.md`](./FAQ.md) as it might be able to answer one or many questions.
