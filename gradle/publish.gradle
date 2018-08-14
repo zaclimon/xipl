@@ -16,7 +16,7 @@ class MissingConfigurePublishException extends GradleException {
 
 }
 
-def libraryVersion = '0.2.1'
+def libraryVersion = '0.2.2'
 
 Closure configurePublish = ext.has('configurePublish') ? ext.get('configurePublish') : {}
 def config = configurePublish()
