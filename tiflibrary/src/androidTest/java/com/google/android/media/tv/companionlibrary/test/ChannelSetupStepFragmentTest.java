@@ -16,22 +16,17 @@
 package com.google.android.media.tv.companionlibrary.test;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.media.tv.TvContract;
 import android.os.Bundle;
-import androidx.test.InstrumentationRegistry;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.google.android.media.tv.companionlibrary.ChannelSetupFragment;
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
+import com.google.android.media.tv.companionlibrary.R;
+import com.google.android.media.tv.companionlibrary.setup.ChannelSetupStepFragment;
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
 
 import junit.framework.Assert;
 
@@ -42,10 +37,14 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class ChannelSetupFragmentTest extends ActivityInstrumentationTestCase2<TestActivity> {
-    private static final String TAG = ChannelSetupFragmentTest.class.getSimpleName();
+import androidx.leanback.widget.GuidanceStylist;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.test.rule.ActivityTestRule;
 
-    private ChannelSetupFragment mChannelSetupFragment;
+public class ChannelSetupStepFragmentTest extends ActivityTestRule<TestActivity> {
+    private static final String TAG = ChannelSetupStepFragmentTest.class.getSimpleName();
+
+    private ChannelSetupStepFragment mChannelSetupFragment;
     private CountDownLatch mCountDownLatch;
 
     private final BroadcastReceiver mSyncStatusChangedReceiver = new BroadcastReceiver() {
@@ -87,14 +86,13 @@ public class ChannelSetupFragmentTest extends ActivityInstrumentationTestCase2<T
         }
     };
 
-    public ChannelSetupFragmentTest() {
+    public ChannelSetupStepFragmentTest() {
         super(TestActivity.class);
     }
 
     @Before
-    public void setUp() throws Exception {
-        super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+    public void beforeActivityLaunched() {
+        super.beforeActivityLaunched();
         getActivity();
         mChannelSetupFragment = new ChannelSetupFragmentImpl();
         getActivity().getFragmentManager().beginTransaction()
@@ -108,8 +106,8 @@ public class ChannelSetupFragmentTest extends ActivityInstrumentationTestCase2<T
     }
 
     @After
-    public void tearDown() throws Exception {
-        super.tearDown();
+    public void afterActivityFinished() {
+        super.afterActivityFinished();
         // Delete content
         getActivity().getContentResolver().delete(TvContract.buildChannelsUriForInput(
                 TestTvInputService.INPUT_ID), null, null);
@@ -130,38 +128,22 @@ public class ChannelSetupFragmentTest extends ActivityInstrumentationTestCase2<T
         }
     }
 
-    public static class ChannelSetupFragmentImpl extends ChannelSetupFragment {
+    public static class ChannelSetupFragmentImpl extends ChannelSetupStepFragment {
+
+        private int channelsScanned;
+
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-            setTitle("Channel Setup UI Test");
-            setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
-            setDescription("Hello world");
-            setBadge(getResources().getDrawable(
-                    com.google.android.media.tv.companionlibrary.test.R.drawable.usb_antenna));
-            setButtonText("Start scanning");
-            setChannelListVisibility(true);
-            return fragmentView;
+        public Class<? extends EpgSyncJobService> getEpgSyncJobServiceClass() {
+            return TestJobService.class;
         }
 
         @Override
-        public void onScanStarted() {
-            setButtonText("Stop!");
-            EpgSyncJobService.cancelAllSyncRequests(getActivity());
-            EpgSyncJobService.requestImmediateSync(getActivity(),
-                    TestTvInputService.INPUT_ID, new ComponentName(getContext(),
-                            TestJobService.class));
-        }
-
-        @Override
-        public String getInputId() {
-            return TestTvInputService.INPUT_ID;
-        }
-
-        @Override
-        public void onScanFinished() {
-            setButtonText("Done!");
+        public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
+            String title = "Channel Setup UI Test";
+            String description = "Hello world";
+            Drawable icon = getResources().getDrawable(
+                    com.google.android.media.tv.companionlibrary.test.R.drawable.usb_antenna);
+            return new GuidanceStylist.Guidance(title, description, null, icon);
         }
 
         @Override
@@ -169,15 +151,14 @@ public class ChannelSetupFragmentTest extends ActivityInstrumentationTestCase2<T
             super.onScannedChannel(displayName, displayNumber);
             Assert.assertNotNull(displayName);
             Assert.assertNotNull(displayNumber);
+            channelsScanned++;
         }
 
         @Override
-        public void onChannelScanCompleted(int channelsScanned, int channelCount) {
-            super.onChannelScanCompleted(channelsScanned, channelCount);
+        public void onScanFinished() {
+            super.onScanFinished();
             Assert.assertTrue("Channels scanned cannot be less than or equal to 0.",
                     channelsScanned > 0);
-            Assert.assertEquals(2, channelCount);
-            setDescription(channelsScanned + " channels scanned.");
         }
     }
 }

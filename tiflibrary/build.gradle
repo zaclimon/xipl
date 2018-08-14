@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: "guru.stefma.bintrayrelease"
+//apply plugin: "guru.stefma.bintrayrelease"
 
 android {
     compileSdkVersion 28
@@ -45,4 +45,4 @@ dependencies {
 
 // Bintray upload details
 ext.set('configurePublish', { [artifactId: 'tiflibrary', desc: 'Android TIF Companion Library adapted for xipl'] })
-apply from: "../gradle/publish.gradle"
+//apply from: "../gradle/publish.gradle"

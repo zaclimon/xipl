@@ -22,32 +22,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.tv.TvContract;
-import androidx.test.InstrumentationRegistry;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.core.content.PermissionChecker;
-import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.util.LongSparseArray;
 
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.model.Channel;
+import com.google.android.media.tv.companionlibrary.model.ModelUtils;
 import com.google.android.media.tv.companionlibrary.model.Program;
-import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.PermissionChecker;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.test.rule.ActivityTestRule;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * Tests the periodic syncing functionality of the EpgSyncJobService to ensure the reliability of
  * the JobScheduler.
  */
-public class PeriodicEpgSyncJobServiceTest extends ActivityInstrumentationTestCase2<TestActivity> {
+public class PeriodicEpgSyncJobServiceTest extends ActivityTestRule<TestActivity> {
     private final static String TAG = PeriodicEpgSyncJobServiceTest.class.getSimpleName();
 
     private final static int NUMBER_OF_SYNCS = 2;
@@ -87,10 +88,9 @@ public class PeriodicEpgSyncJobServiceTest extends ActivityInstrumentationTestCa
         super(TestActivity.class);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+    @Override
+    public void beforeActivityLaunched() {
+        super.beforeActivityLaunched();
         getActivity();
         // Delete all channels
         getActivity().getContentResolver().delete(TvContract.buildChannelsUriForInput(mInputId),
@@ -99,14 +99,14 @@ public class PeriodicEpgSyncJobServiceTest extends ActivityInstrumentationTestCa
         mSampleJobService = new TestJobService();
         mSampleJobService.mContext = getActivity();
         mChannelList = mSampleJobService.getChannels();
-        TvContractUtils.updateChannels(getActivity(), mInputId, mChannelList);
-        mChannelMap = TvContractUtils.buildChannelMap(getActivity().getContentResolver(), mInputId);
+        ModelUtils.updateChannels(getActivity(), mInputId, mChannelList, null);
+        mChannelMap = ModelUtils.buildChannelMap(getActivity().getContentResolver(), mInputId);
         assertEquals(2, mChannelMap.size());
     }
 
     @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
+    public void afterActivityFinished() {
+        super.afterActivityFinished();
         LocalBroadcastManager.getInstance(getActivity())
                 .unregisterReceiver(mSyncStatusChangedReceiver);
 

@@ -23,15 +23,16 @@ import android.content.IntentFilter;
 import android.media.tv.TvContract;
 import android.net.Uri;
 import androidx.test.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.util.LongSparseArray;
 
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.model.Channel;
+import com.google.android.media.tv.companionlibrary.model.ModelUtils;
 import com.google.android.media.tv.companionlibrary.model.Program;
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 
 import junit.framework.Assert;
@@ -43,13 +44,18 @@ import org.junit.runner.RunWith;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests the synchronization of the EpgSyncTask with the EPG, making sure repeated programs are
  * generated correctly for the entire syncing period.
  */
 @RunWith(AndroidJUnit4.class)
 public class EpgSyncJobServiceTest
-        extends ActivityInstrumentationTestCase2<TestActivity> {
+        extends ActivityTestRule<TestActivity> {
     private static final String TAG = EpgSyncJobServiceTest.class.getSimpleName();
 
     private List<Program> mProgramList;
@@ -91,10 +97,9 @@ public class EpgSyncJobServiceTest
         super(TestActivity.class);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+    @Override
+    public void beforeActivityLaunched() {
+        super.beforeActivityLaunched();
         getActivity();
         // Delete all channels
         getActivity().getContentResolver().delete(TvContract.buildChannelsUriForInput(
@@ -103,8 +108,8 @@ public class EpgSyncJobServiceTest
         mSampleJobService = new TestJobService();
         mSampleJobService.mContext = getActivity();
         mChannelList = mSampleJobService.getChannels();
-        TvContractUtils.updateChannels(getActivity(), TestTvInputService.INPUT_ID, mChannelList);
-        mChannelMap = TvContractUtils.buildChannelMap(getActivity().getContentResolver(),
+        ModelUtils.updateChannels(getActivity(), TestTvInputService.INPUT_ID, mChannelList, null);
+        mChannelMap = ModelUtils.buildChannelMap(getActivity().getContentResolver(),
                 TestTvInputService.INPUT_ID);
         assertNotNull(mChannelMap);
         assertEquals(2, mChannelMap.size());
@@ -125,8 +130,8 @@ public class EpgSyncJobServiceTest
     }
 
     @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
+    public void afterActivityFinished() {
+        super.afterActivityFinished();
         LocalBroadcastManager.getInstance(getActivity())
                 .unregisterReceiver(mSyncStatusChangedReceiver);
 
@@ -189,10 +194,10 @@ public class EpgSyncJobServiceTest
         mSyncStatusLatch.await();
 
         // Sync is completed
-        List<Channel> channelList = TvContractUtils.getChannels(getActivity().getContentResolver());
+        List<Channel> channelList = ModelUtils.getChannels(getActivity().getContentResolver());
         Log.d("TvContractUtils", channelList.toString());
         assertEquals(2, channelList.size());
-        List<Program> programList = TvContractUtils.getPrograms(getActivity().getContentResolver(),
+        List<Program> programList = ModelUtils.getPrograms(getActivity().getContentResolver(),
                 TvContract.buildChannelUri(channelList.get(0).getId()));
         assertEquals(5, programList.size());
     }
@@ -202,8 +207,8 @@ public class EpgSyncJobServiceTest
         // Tests whether methods to get channels and programs are successful and valid
         List<Channel> channelList = mSampleJobService.getChannels();
         assertEquals(2, channelList.size());
-        TvContractUtils.updateChannels(getActivity(), TestTvInputService.INPUT_ID, channelList);
-        LongSparseArray<Channel> channelMap = TvContractUtils.buildChannelMap(
+        ModelUtils.updateChannels(getActivity(), TestTvInputService.INPUT_ID, channelList, null);
+        LongSparseArray<Channel> channelMap = ModelUtils.buildChannelMap(
                 getActivity().getContentResolver(), TestTvInputService.INPUT_ID);
         assertNotNull(channelMap);
         assertEquals(channelMap.size(), channelList.size());
