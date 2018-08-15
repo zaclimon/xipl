@@ -19,6 +19,8 @@ allprojects {
         google()
         jcenter()
     }
+    version = "0.2.2"
+    group = "com.zaclimon"
 }
 
 task clean(type: Delete) {
