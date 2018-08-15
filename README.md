@@ -18,9 +18,9 @@ Simply import the library to your `build.gradle`
 
 ```groovy
     // Core library
-    implementation 'com.zaclimon:xipl:0.1.0'
+    implementation 'com.zaclimon:xipl:0.2.2'
     // Only if you want the adapted TIF Companion Library
-    implementation 'com.zaclimon:tiflibrary:0.1.0'
+    implementation 'com.zaclimon:tiflibrary:0.2.2'
 ```
 
 ## How to begin developping
