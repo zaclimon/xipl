@@ -27,8 +27,8 @@ configurations {
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
-    implementation 'androidx.leanback:leanback:1.0.0-beta01'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-rc01'
+    implementation 'androidx.leanback:leanback:1.0.0-rc01'
     implementation 'com.google.ads.interactivemedia.v3:interactivemedia:3.6.0'
     implementation 'com.google.android.gms:play-services-ads-lite:15.0.1'
 
