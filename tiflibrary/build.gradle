@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-//apply plugin: "guru.stefma.bintrayrelease"
+apply plugin: "guru.stefma.bintrayrelease"
 
 android {
     compileSdkVersion 28
@@ -27,7 +27,6 @@ configurations {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
     implementation 'androidx.leanback:leanback:1.0.0-beta01'
     implementation 'com.google.ads.interactivemedia.v3:interactivemedia:3.6.0'
@@ -45,4 +44,4 @@ dependencies {
 
 // Bintray upload details
 ext.set('configurePublish', { [artifactId: 'tiflibrary', desc: 'Android TIF Companion Library adapted for xipl'] })
-//apply from: "../gradle/publish.gradle"
+apply from: "../gradle/publish.gradle"

@@ -1,4 +1,4 @@
-/* 
+/*
  * Gradle Commands for publishing to Bintray
  * ./gradlew :clean :library:assembleRelease :library:bintrayUpload -PdryRun=false
  * ./gradlew :clean :tiflibrary:assembleRelease :tiflibrary:bintrayUpload -PdryRun=false
@@ -16,8 +16,6 @@ class MissingConfigurePublishException extends GradleException {
 
 }
 
-def libraryVersion = '0.2.2'
-
 Closure configurePublish = ext.has('configurePublish') ? ext.get('configurePublish') : {}
 def config = configurePublish()
 if (config == null) throw new MissingConfigurePublishException('configurePublish')
@@ -25,8 +23,6 @@ if (config == null) throw new MissingConfigurePublishException('configurePublish
 publish {
     repoName = 'xipl'
     userOrg = 'zaclimon'
-    group = 'com.zaclimon'
-    version = libraryVersion
     artifactId = config['artifactId']
     desc = config['desc']
     repository = 'https://github.com/zaclimon/xipl'
