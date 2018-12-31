@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
-apply plugin: "guru.stefma.bintrayrelease"
+//apply plugin: "guru.stefma.bintrayrelease"
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         minSdkVersion 21
@@ -36,4 +36,4 @@ dependencies {
 
 // Bintray upload details
 ext.set('configurePublish', { [artifactId: 'xipl', desc: 'XtreamCodes IPTV Provider Library'] })
-apply from: "../gradle/publish.gradle"
+//apply from: "../gradle/publish.gradle"
